@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+$font-family: "Poppins", system-ui, sans-serif;
+
+// ============================
+// Main COLORS
+// ============================
+
+$primary: blue;
+$secondary: lightblue;
+$tertiary: lightgreen;
+
+// ============================
+// COLORS - LIGHT MODE
+// ============================
+
+$light-text: #7f8c8d;
+$light-text-secondary: #7f8c8d;
+
+$light-background: #ffffff;
+$light-background-secondary: #e6f2ff;
+$light-background-tertiary: #ffffff;
+
+// ============================
+// COLORS - DARK MODE
+// ============================
+
+$dark-text: #7f8c8d;
+$dark-text-secondary: #7f8c8d;
+
+$dark-background: #ffffff;
+$dark-background-secondary: #ffffff;
+$dark-background-tertiary: #ffffff;
+
+// ============================
+// FONT AND SPACING SETTINGS
+// ============================
+
+$font-size-xl: 20px;
+$font-size-lg: 18px;
+$font-size-base: 16px;
+$font-size-md: 14px;
+$font-size-sm: 12px;
+$font-size-xs: 10px;
+
+// ============================
+// RESPONSIVE BREAKPOINTS
+// ============================
+
+$breakpoint-xs: 320px; // Extra small (Mobile)
+$breakpoint-sm: 576px; // Small (Mobile, Landscape, Small Tablets)
+$breakpoint-md: 768px; // Medium (Tablets)
+$breakpoint-base: 1024px; // Medium (Desktops, Laptops)
+$breakpoint-lg: 1200px; // Large (Desktops, Laptops)
+$breakpoint-xl: 1440px; // Extra Large (Large Desktops, Wide Screens)
+$breakpoint-xxl: 1800px; // Ultra Large (Ultra-wide Desktops)
+$breakpoint-4k: 2560px; // 4K Screens (Ultra-HD)
