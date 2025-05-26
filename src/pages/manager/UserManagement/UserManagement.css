@@ -1,0 +1,33 @@
+.user-page-wrapper {
+  padding: 20px 30px;
+  flex: 1;
+  margin-left: 220px;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+.user-header {
+  margin-bottom: 20px;
+}
+
+.user-table-wrapper {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .user-page-wrapper {
+    padding: 15px;
+    margin-left: 0;
+  }
+
+  .user-table-wrapper {
+    padding: 10px;
+  }
+
+  .user-header .ant-row > div {
+    margin-bottom: 10px;
+  }
+}

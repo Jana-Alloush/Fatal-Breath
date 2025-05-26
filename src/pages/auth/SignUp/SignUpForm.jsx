@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SignUpForm.css';
 import { FaUser, FaLock, FaEnvelope, FaPhone } from "react-icons/fa";
 
-const SignUpForm = ({ onSwitch }) => {
+import { useNavigate } from 'react-router-dom';
+
+const SignUpForm = () => {
+  
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle sign up logic here
+  };
+
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    navigate('/');
+  };
+
+/*const SignUpForm = ({ onSwitch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle sign up logic here
@@ -11,7 +29,7 @@ const SignUpForm = ({ onSwitch }) => {
   const handleLoginClick = (e) => {
     e.preventDefault();
     onSwitch(); // Switch to login form
-  };
+  };*/
 
   return (
     <div className='wrapper'>
@@ -24,7 +42,13 @@ const SignUpForm = ({ onSwitch }) => {
         </div>
         
         <div className="input-box">
-          <input type="email" placeholder='Email' required />
+          <input 
+          type="email" 
+          placeholder='Email' 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required 
+          />
           <FaEnvelope className='icon' />
         </div>
         
