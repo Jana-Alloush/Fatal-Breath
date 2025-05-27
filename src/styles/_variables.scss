@@ -8,7 +8,7 @@ $font-family: "Poppins", system-ui, sans-serif;
 $primary: #002766;       // Deep royal blue
 $secondary: #165dbe;     // Vivid sky blue
 $tertiary: #66aaff;      // Light soft blue
-
+$quaternary:white;
 // ============================
 // COLORS - LIGHT MODE
 // ============================
@@ -17,7 +17,7 @@ $light-text-secondary: #2c5aa0;
 $light-background: #E3EEFF;
 $light-background-secondary: #f8fbff;
 $light-background-tertiary: #d1e3ff;
-
+$light-background-quaternary: rgba(22, 93, 190, 0.2);
 // ============================
 // COLORS - DARK MODE
 // ============================
@@ -25,7 +25,7 @@ $dark-text: #E3EEFF;
 $dark-text-secondary: #b8d4ff;
 $dark-background: #0a0d2e;
 $dark-background-secondary: #1a1f4a;
-$dark-background-tertiary: #2a3566;
+$dark-background-tertiary:#2a3566;
 // ============================
 // FONT AND SPACING SETTINGS
 // ============================
