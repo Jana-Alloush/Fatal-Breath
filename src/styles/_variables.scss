@@ -5,33 +5,27 @@ $font-family: "Poppins", system-ui, sans-serif;
 // ============================
 // Main COLORS
 // ============================
-
-$primary: blue;
-$secondary: lightblue;
-$tertiary: lightgreen;
+$primary: #002766;       // Deep royal blue
+$secondary: #165dbe;     // Vivid sky blue
+$tertiary: #66aaff;      // Light soft blue
 
 // ============================
 // COLORS - LIGHT MODE
 // ============================
-
-$light-text: #7f8c8d;
-$light-text-secondary: #7f8c8d;
-
-$light-background: #ffffff;
-$light-background-secondary: #e6f2ff;
-$light-background-tertiary: #ffffff;
+$light-text: #000252;
+$light-text-secondary: #2c5aa0;
+$light-background: #E3EEFF;
+$light-background-secondary: #f8fbff;
+$light-background-tertiary: #d1e3ff;
 
 // ============================
 // COLORS - DARK MODE
 // ============================
-
-$dark-text: #7f8c8d;
-$dark-text-secondary: #7f8c8d;
-
-$dark-background: #ffffff;
-$dark-background-secondary: #ffffff;
-$dark-background-tertiary: #ffffff;
-
+$dark-text: #E3EEFF;
+$dark-text-secondary: #b8d4ff;
+$dark-background: #0a0d2e;
+$dark-background-secondary: #1a1f4a;
+$dark-background-tertiary: #2a3566;
 // ============================
 // FONT AND SPACING SETTINGS
 // ============================
