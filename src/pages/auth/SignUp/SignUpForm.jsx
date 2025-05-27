@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./SignUpForm.css";
 import { FaUser, FaLock, FaEnvelope, FaPhone } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";

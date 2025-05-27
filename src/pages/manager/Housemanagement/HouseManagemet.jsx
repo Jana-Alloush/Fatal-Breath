@@ -1,172 +1,138 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
 import {
-  Table,
+  Card,
   Button,
   Modal,
-  Form,
   Input,
-  message,
-  Popconfirm,
+  Form,
+  Table,
   Space,
-  Row,
-  Col
-} from 'antd';
-import {
-  PlusOutlined,
-  DeleteOutlined,
-  MailOutlined,
-  SearchOutlined
-} from '@ant-design/icons';
-import './HouseManagement.css';
+  message,
+} from "antd";
+import { PlusOutlined, UserAddOutlined, DeleteOutlined, SearchOutlined } from "@ant-design/icons";
 
 const HouseManagement = () => {
   const [houses, setHouses] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [isInviteModalVisible, setIsInviteModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [inviteForm] = Form.useForm();
-  const [selectedHouse, setSelectedHouse] = useState(null);
-  const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setHouses([
-        { id: 1, name: 'Villa Rose', location: 'Beirut' },
-        { id: 2, name: 'Skyline House', location: 'Tripoli' }
-      ]);
-      setLoading(false);
-    }, 500);
-  }, []);
-
-  const handleAddHouse = () => {
-    form.validateFields().then(values => {
-      const newHouse = { id: houses.length + 1, ...values };
-      setHouses([...houses, newHouse]);
-      setIsAddModalVisible(false);
-      form.resetFields();
-      message.success('House added successfully');
-    });
+  const handleAddHouse = (values) => {
+    setHouses([...houses, { key: Date.now(), name: values.houseName }]);
+    form.resetFields();
+    setIsModalVisible(false);
+    message.success("House added successfully");
   };
 
-  const handleDelete = (id) => {
-    setHouses(houses.filter(h => h.id !== id));
-    message.success('House deleted');
+  const handleDeleteHouse = (key) => {
+    setHouses(houses.filter(h => h.key !== key));
+    message.success("House deleted");
   };
 
-  const showInviteModal = (house) => {
-    setSelectedHouse(house);
-    setIsInviteModalVisible(true);
+  const handleInviteUser = (values) => {
+    console.log("Inviting user:", values);
+    inviteForm.resetFields();
+    setIsInviteModalVisible(false);
+    message.success("User invited successfully");
   };
 
-  const handleSendInvitation = () => {
-    inviteForm.validateFields().then(values => {
-      message.success(`Invitation sent to ${values.email} for "${selectedHouse.name}"`);
-      inviteForm.resetFields();
-      setIsInviteModalVisible(false);
-    });
-  };
-
-  const filteredHouses = houses.filter(h =>
-    h.name.toLowerCase().includes(search.toLowerCase()) ||
-    h.location.toLowerCase().includes(search.toLowerCase())
+  const filteredHouses = houses.filter((house) =>
+    house.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const columns = [
     {
-      title: 'House Name',
-      dataIndex: 'name',
-      key: 'name'
+      title: "House Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: 'Location',
-      dataIndex: 'location',
-      key: 'location'
-    },
-    {
-      title: 'Actions',
-      key: 'actions',
+      title: "Actions",
+      key: "actions",
       render: (_, record) => (
         <Space>
-          <Popconfirm title="Are you sure to delete this house?" onConfirm={() => handleDelete(record.id)}>
-            <Button danger icon={<DeleteOutlined />} />
-          </Popconfirm>
-          <Button type="primary" icon={<MailOutlined />} onClick={() => showInviteModal(record)}>
+          <Button icon={<UserAddOutlined />} onClick={() => setIsInviteModalVisible(true)}>
             Invite
           </Button>
+          <Button
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => handleDeleteHouse(record.key)}
+          >
+            Delete
+          </Button>
         </Space>
-      )
-    }
+      ),
+    },
   ];
 
   return (
-    <div className="house-page-wrapper">
-      <div className="house-header">
-        <Row gutter={16}>
-          <Col xs={24} sm={12}>
+    <div className="house-management">
+      <Card
+        title="House Management"
+        extra={
+          <Space>
             <Input
-              placeholder="Search by name or location"
+              placeholder="Search Houses"
               prefix={<SearchOutlined />}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              allowClear
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              className="search-input"
             />
-          </Col>
-          <Col xs={24} sm={12} style={{ textAlign: 'right' }}>
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={() => setIsAddModalVisible(true)}
-            >
+            <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
               Add House
             </Button>
-          </Col>
-        </Row>
-      </div>
-
-      <div className="house-table-wrapper">
-        <Table
-          dataSource={filteredHouses}
-          columns={columns}
-          rowKey="id"
-          loading={loading}
-          pagination={{ pageSize: 5 }}
-        />
-      </div>
+          </Space>
+        }
+      >
+        <Table columns={columns} dataSource={filteredHouses} pagination={{ pageSize: 5 }} />
+      </Card>
 
       {/* Add House Modal */}
       <Modal
         title="Add New House"
-        open={isAddModalVisible}
-        onCancel={() => setIsAddModalVisible(false)}
-        onOk={handleAddHouse}
+        open={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        footer={null}
       >
-        <Form form={form} layout="vertical">
-          <Form.Item label="House Name" name="name" rules={[{ required: true }]}>
-            <Input placeholder="Enter house name" />
+        <Form form={form} onFinish={handleAddHouse}>
+          <Form.Item
+            name="houseName"
+            rules={[{ required: true, message: "Please enter house name" }]}
+          >
+            <Input placeholder="House Name" />
           </Form.Item>
-          <Form.Item label="Location" name="location" rules={[{ required: true }]}>
-            <Input placeholder="Enter location" />
-          </Form.Item>
+          <Button type="primary" htmlType="submit" block>
+            Add
+          </Button>
         </Form>
       </Modal>
 
-      {/* Invite Modal */}
+      {/* Invite User Modal */}
       <Modal
-        title={`Invite User to ${selectedHouse?.name}`}
+        title="Invite User"
         open={isInviteModalVisible}
         onCancel={() => setIsInviteModalVisible(false)}
-        onOk={handleSendInvitation}
+        footer={null}
       >
-        <Form form={inviteForm} layout="vertical">
+        <Form form={inviteForm} onFinish={handleInviteUser}>
           <Form.Item
-            label="User Email"
             name="email"
-            rules={[{ required: true, type: 'email', message: 'Please enter a valid email' }]}
+            rules={[{ required: true, message: "Enter email" }]}
           >
-            <Input placeholder="user@example.com" />
+            <Input placeholder="User Email" />
           </Form.Item>
+          <Form.Item
+            name="role"
+            rules={[{ required: true, message: "Enter user role" }]}
+          >
+            <Input placeholder="User Role" />
+          </Form.Item>
+          <Button type="primary" htmlType="submit" block>
+            Send Invitation
+          </Button>
         </Form>
       </Modal>
     </div>
