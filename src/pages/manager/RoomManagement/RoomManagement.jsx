@@ -13,7 +13,7 @@ import {
   Col,
 } from 'antd';
 import { PlusOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
-import './RoomManagement.css';
+import '../../../styles/pages/manager/_roommanagement.scss';
 
 const { Option } = Select;
 

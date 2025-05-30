@@ -3,7 +3,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import ManagerSidebar from '../Sidebar/ManagerSidebar';
-import '../Sidebar/ManagerSidebar.css'; // for styling
+import '../../styles/components/sidebar/_managersidebar.scss';
 
 const ManagerLayout = () => {
   return (

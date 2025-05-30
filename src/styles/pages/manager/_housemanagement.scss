@@ -1,49 +1,102 @@
 @use "../../variables" as variables;
 
-$font-family: "Poppins", system-ui, sans-serif;
+.house-management-container {
+  padding: 20px;
+  background-color: variables.$light-background;
+  min-height: 100vh;
+  font-family: variables.$font-family;
+  height: fit-content;
+  min-width: 80rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
 
-.house-management {
-  font-family: $font-family;
-  padding: 1.5rem;
+  @media (max-width: variables.$breakpoint-md) {
+    min-width: auto;
+  }
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
+  .house-management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 24px;
+    @media (max-width: variables.$breakpoint-md) {
+      flex-direction: column;
+      align-items: stretch;
+    }
 
-  .ant-card {
-    background-color: variables.$light-background;
+    @media (max-width: 480px) {
+      gap: 0.5rem;
+    }
+    input {
+      width: 300px;
+      max-width: 100%;
+     
+      @media (max-width: variables.$breakpoint-md) {
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    .ant-btn {
+      min-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: variables.$quaternary;
+      background-color: variables.$primary;
+      .ant-table {
+        font-size: 0.85rem;
+      }
+
+      .ant-btn {
+        width: 100%;
+      }
+      @media (max-width: 480px) {
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+
+.ant-table {
+  background-color: variables.$quaternary;
+  border-radius: 10px;
+  overflow: auto;
+  .ant-table-thead > tr > th {
+    background-color: variables.$primary;
+    color: variables.$quaternary;
+    font-weight: bold;
+    white-space: nowrap;
+
+    @media (max-width: variables.$breakpoint-md) {
+      .ant-table {
+        font-size: 0.85rem;
+      }
+    }
+
+    .ant-table-tbody > tr > td {
+      background-color: variables.$light-background-secondary;
+      word-break: break-word;
+    }
+
+    .ant-btn-dangerous {
+      border: none;
+      background: none;
+
+      &:hover {
+        background-color: rgba(255, 77, 79, 0.1);
+      }
+    }
+  }
+
+  .ant-modal .ant-modal-content {
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 39, 102, 0.1);
-  }
-
-  .ant-card-head-title {
-    font-size: variables.$font-size-xl;
-    color: variables.$primary;
-    font-weight: 600;
-  }
-
-  .search-input {
-    width: 250px;
-    font-size: variables.$font-size-base;
-  }
-
-  .ant-table {
-    background-color: variables.$quaternary;
-  }
-
-  .ant-btn-primary {
-    background-color: variables.$secondary;
-    border-color: variables.$secondary;
-    font-weight: 500;
-  }
-
-  .ant-btn-dangerous {
-    background-color: #ff4d4f;
-    border-color: #ff4d4f;
-  }
-
-  .ant-form-item {
-    margin-bottom: 1rem;
-  }
-
-  input {
-    font-family: variables.$font-family;
-    font-size: variables.$font-size-base;
   }
 }

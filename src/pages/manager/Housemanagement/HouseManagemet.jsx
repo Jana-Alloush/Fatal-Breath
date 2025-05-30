@@ -1,108 +1,110 @@
-import React, { useState } from "react";
-import {
-  Card,
-  Button,
-  Modal,
-  Input,
-  Form,
-  Table,
-  Space,
-  message,
-} from "antd";
-import { PlusOutlined, UserAddOutlined, DeleteOutlined, SearchOutlined } from "@ant-design/icons";
+import React, { useState } from 'react';
+import { Button, Input, Modal, Table, Form, Row, Col } from 'antd';
+import { PlusOutlined, DeleteOutlined, UserAddOutlined, SearchOutlined } from '@ant-design/icons';
+import '../../../styles/pages/manager/_housemanagement.scss';
 
 const HouseManagement = () => {
-  const [houses, setHouses] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isInviteModalVisible, setIsInviteModalVisible] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [form] = Form.useForm();
-  const [inviteForm] = Form.useForm();
 
-  const handleAddHouse = (values) => {
-    setHouses([...houses, { key: Date.now(), name: values.houseName }]);
-    form.resetFields();
-    setIsModalVisible(false);
-    message.success("House added successfully");
+  const [houses, setHouses] = useState([
+    { key: '1', name: 'Sunset Villa', owner: 'Ahmed Karim' },
+    { key: '2', name: 'Palm Residency', owner: 'Sara Ali' },
+  ]);
+
+  const handleAddHouse = (newHouse) => {
+    const key = Date.now().toString();
+    setHouses([...houses, { ...newHouse, key }]);
+    form.resetFields(); 
+    setIsModalOpen(false); 
   };
 
-  const handleDeleteHouse = (key) => {
-    setHouses(houses.filter(h => h.key !== key));
-    message.success("House deleted");
+  
+  const handleDelete = (key) => {
+    const newData = houses.filter((item) => item.key !== key);
+    setHouses(newData);
   };
-
-  const handleInviteUser = (values) => {
-    console.log("Inviting user:", values);
-    inviteForm.resetFields();
-    setIsInviteModalVisible(false);
-    message.success("User invited successfully");
-  };
-
-  const filteredHouses = houses.filter((house) =>
-    house.name.toLowerCase().includes(searchText.toLowerCase())
-  );
 
   const columns = [
     {
-      title: "House Name",
-      dataIndex: "name",
-      key: "name",
+      title: 'House Name',
+      dataIndex: 'name',
+      key: 'name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: "Actions",
-      key: "actions",
+      title: 'Owner',
+      dataIndex: 'owner',
+      key: 'owner',
+      sorter: (a, b) => a.owner.localeCompare(b.owner),
+    },
+    {
+      title: 'Actions',
+      key: 'actions',
+      width: 100,
       render: (_, record) => (
-        <Space>
-          <Button icon={<UserAddOutlined />} onClick={() => setIsInviteModalVisible(true)}>
-            Invite
-          </Button>
-          <Button
-            danger
-            icon={<DeleteOutlined />}
-            onClick={() => handleDeleteHouse(record.key)}
-          >
-            Delete
-          </Button>
-        </Space>
+        <Button
+          danger
+          icon={<DeleteOutlined />}
+          size="small"
+          onClick={() => handleDelete(record.key)}
+        />
       ),
     },
   ];
 
-  return (
-    <div className="house-management">
-      <Card
-        title="House Management"
-        extra={
-          <Space>
-            <Input
-              placeholder="Search Houses"
-              prefix={<SearchOutlined />}
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              className="search-input"
-            />
-            <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
-              Add House
-            </Button>
-          </Space>
-        }
-      >
-        <Table columns={columns} dataSource={filteredHouses} pagination={{ pageSize: 5 }} />
-      </Card>
+ 
+  const filteredData = houses.filter((house) =>
+    house.name.toLowerCase().includes(searchText.toLowerCase())
+  );
 
-      {/* Add House Modal */}
+  return (
+    <div className="house-management-container">
+      <Row className="house-management-header" gutter={[16, 16]}>
+        <Col xs={24} sm={12} md={8}>
+          <Input
+            placeholder="Search..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            prefix={<SearchOutlined />}
+            allowClear
+          />
+        </Col>
+        <Col xs={12} sm={6}>
+          <Button type="primary" icon={<PlusOutlined />} block onClick={() => setIsModalOpen(true)}>
+            Add House
+          </Button>
+        </Col>
+        <Col xs={12} sm={6}>
+          <Button icon={<UserAddOutlined />} block onClick={() => setIsInviteOpen(true)}>
+            Invite User
+          </Button>
+        </Col>
+      </Row>
+
+      <Table
+        dataSource={filteredData}
+        columns={columns}
+        pagination={{ pageSize: 5 }}
+        rowKey="key"
+      />
+
+      {/* modal lnzed bet*/}
       <Modal
-        title="Add New House"
-        open={isModalVisible}
-        onCancel={() => setIsModalVisible(false)}
+        title="Add House"
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
         footer={null}
+        centered
       >
-        <Form form={form} onFinish={handleAddHouse}>
-          <Form.Item
-            name="houseName"
-            rules={[{ required: true, message: "Please enter house name" }]}
-          >
-            <Input placeholder="House Name" />
+        <Form layout="vertical" form={form} onFinish={handleAddHouse}>
+          <Form.Item name="name" label="House Name" rules={[{ required: true }]}>
+            <Input placeholder="e.g. Sunset Estate" />
+          </Form.Item>
+          <Form.Item name="owner" label="Owner Name" rules={[{ required: true }]}>
+            <Input placeholder="e.g. Ahmed Karim" />
           </Form.Item>
           <Button type="primary" htmlType="submit" block>
             Add
@@ -110,25 +112,17 @@ const HouseManagement = () => {
         </Form>
       </Modal>
 
-      {/* Invite User Modal */}
+      {/* Modal invite */}
       <Modal
         title="Invite User"
-        open={isInviteModalVisible}
-        onCancel={() => setIsInviteModalVisible(false)}
+        open={isInviteOpen}
+        onCancel={() => setIsInviteOpen(false)}
         footer={null}
+        centered
       >
-        <Form form={inviteForm} onFinish={handleInviteUser}>
-          <Form.Item
-            name="email"
-            rules={[{ required: true, message: "Enter email" }]}
-          >
-            <Input placeholder="User Email" />
-          </Form.Item>
-          <Form.Item
-            name="role"
-            rules={[{ required: true, message: "Enter user role" }]}
-          >
-            <Input placeholder="User Role" />
+        <Form layout="vertical">
+          <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email' }]}>
+            <Input placeholder="example@email.com" />
           </Form.Item>
           <Button type="primary" htmlType="submit" block>
             Send Invitation

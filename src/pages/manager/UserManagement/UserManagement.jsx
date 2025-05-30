@@ -5,7 +5,7 @@ import {
 import {
   PlusOutlined, EditOutlined, DeleteOutlined, DownloadOutlined, SearchOutlined
 } from '@ant-design/icons';
-import './UserManagement.css';
+import '../../../styles/pages/manager/_usermanagement.scss';
 
 const { Option } = Select;
 

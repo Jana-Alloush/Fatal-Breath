@@ -8,14 +8,16 @@ import ManagerLayout from "./Components/Layouts/ManagerLayout";
 import ManagerDashboard from "./pages/manager/ManagerDashboard/ManagerDashboard";
 import RoomManagement from "./pages/manager/RoomManagement/RoomManagement";
 import Monitoring from "./pages/manager/RealTimeMonitoring/RealTimeMonitoring";
-import Announcements from "./pages/manager/Announcements/Announcements";
 import Analytics from "./pages/manager/Analytics/Analytics";
-
+import HouseManagement from "./pages/manager/Housemanagement/HouseManagemet";
+import UserManagement from "./pages/manager/UserManagement/UserManagement";
+import AnnouncementCenter from "./pages/manager/AnnouncementCenter/AnnouncementCenter";
 // admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import HouseManagement from "./pages/admin/HouseManagement";
+import AdminHouseManagement from "./pages/admin/Adminhousemanagement";
 import SensorMonitoring from "./pages/admin/SensorMonitoring";
-import UserManagement from "./pages/admin/UserManagment";
+import AdminUserManagement from "./pages/admin/AminUserManagment";
+
 
 function App() {
   return (
@@ -30,7 +32,7 @@ function App() {
           <Route path="rooms" element={<RoomManagement />} />
           <Route path="users" element={<UserManagement />} />
           <Route path="monitoring" element={<Monitoring />} />
-          <Route path="announcements" element={<Announcements />} />
+          <Route path="announcements" element={<AnnouncementCenter />} />
           <Route path="analytics" element={<Analytics />} />
         </Route>
       </Routes>

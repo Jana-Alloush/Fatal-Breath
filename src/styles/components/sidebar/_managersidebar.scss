@@ -1,0 +1,67 @@
+@use '../../variables' as variables; 
+
+.manager-container {
+  display: flex;
+  gap: 1rem;
+  min-height: 100vh;
+
+  font-family: variables.$font-family;
+
+  .main-content {
+    margin-left: 220px;
+   
+    background-color: variables.$light-background;
+    color: variables.$light-text;
+    padding: 1.5rem;
+    flex: 1;
+  }
+
+  .sidebar {
+    width: 220px;
+    background-color: variables.$dark-background-secondary;
+    color: variables.$dark-text;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    overflow-y: auto;
+    font-size: variables.$font-size-sm;
+
+    h2 {
+      font-size: variables.$font-size-xl;
+      margin-bottom: 30px;
+      color: variables.$quaternary;
+    }
+
+    .sidebar-section {
+      margin-bottom: 20px;
+
+      h3 {
+        font-size: variables.$font-size-sm;
+        color: variables.$dark-text-secondary;
+        margin: 20px 0 10px 15px;
+        text-transform: uppercase;
+      }
+    }
+
+    a {
+      color: variables.$dark-text-secondary;
+      text-decoration: none;
+      margin: 5px 0;
+      padding: 10px 15px;
+      border-radius: 10px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      font-size: variables.$font-size-sm;
+
+      &:hover,
+      &.active {
+        background-color: variables.$dark-background-tertiary;
+        color: variables.$dark-text;
+      }
+    }
+  }
+}

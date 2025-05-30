@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import './ManagerSidebar.css';
+
 
 const  ManagerSidebar = () => {
   const location = useLocation();
