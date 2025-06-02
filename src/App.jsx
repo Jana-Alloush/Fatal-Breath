@@ -5,7 +5,7 @@ import SignUpForm from "./pages/auth/SignUp/SignUpForm";
 import ManagerLayout from "./Components/Layouts/ManagerLayout";
 
 // manager Pages
-import ManagerDashboard from "./pages/manager/ManagerDashboard/ManagerDashboard";
+import OverviewPage from "./pages/manager/OverviewPage/OverviewPage";
 import RoomManagement from "./pages/manager/RoomManagement/RoomManagement";
 import Monitoring from "./pages/manager/RealTimeMonitoring/RealTimeMonitoring";
 import Analytics from "./pages/manager/Analytics/Analytics";
@@ -27,7 +27,7 @@ function App() {
         <Route path="/register" element={<SignUpForm />} />
 
         <Route path="/manager" element={<ManagerLayout />}>
-          <Route index element={<ManagerDashboard />} />
+          <Route index element={<OverviewPage />} />
           <Route path="houses" element={<HouseManagement />} />
           <Route path="rooms" element={<RoomManagement />} />
           <Route path="users" element={<UserManagement />} />
