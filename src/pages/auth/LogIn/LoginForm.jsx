@@ -1,21 +1,32 @@
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { Login } from "../../../root/api";
+import { localStorageAction } from "../../../core/config/localstorage";
 
 function LoginForm() {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (username === "admin" && password === "admin") {
-      navigate("/admin");
-    } else if (username === "manager" && password === "manager") {
-      navigate("/manager")
-    } else {
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+
+      const response = await Login(username, password);
+
+      console.log("response : ", response);
+
+      console.log(localStorageAction("access_token"));
+      navigate("/manager");
+    } catch (error) {
+      console.error("Login failed:", error);
       alert("Invalid username or password.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,7 +48,7 @@ function LoginForm() {
       <div className="branding-section">
         <div className="branding-content">
           <h1 className="branding-title">FATAL BREATH</h1>
-        
+
           <h2 className="branding-subtitle">
             Your Guardian Angel Against Toxic Gases!
           </h2>
@@ -85,7 +96,11 @@ function LoginForm() {
               <a href="#">Forgot password?</a>
             </div>
 
-            <button type="submit">Login</button>
+            {!loading && (
+              <button type="submit" disabled={loading}>
+                Login
+              </button>
+            )}
 
             <div className="register-link">
               <p>
