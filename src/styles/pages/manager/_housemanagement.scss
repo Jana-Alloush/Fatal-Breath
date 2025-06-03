@@ -5,19 +5,14 @@
   background-color: variables.$light-background;
   min-height: 100vh;
   font-family: variables.$font-family;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   height: fit-content;
   min-width: 80rem;
   display: flex;
   flex-direction: column;
   flex: 1;
-  width: 100%;
-
-  @media (max-width: variables.$breakpoint-md) {
-    min-width: auto;
-  }
-  @media (max-width: 480px) {
-    padding: 10px;
-  }
   .house-management-header {
     display: flex;
     justify-content: space-between;
@@ -25,23 +20,10 @@
     flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 24px;
-    @media (max-width: variables.$breakpoint-md) {
-      flex-direction: column;
-      align-items: stretch;
-    }
 
-    @media (max-width: 480px) {
-      gap: 0.5rem;
-    }
     input {
-      width: 300px;
-      max-width: 100%;
-     
-      @media (max-width: variables.$breakpoint-md) {
-        input {
-          width: 100%;
-        }
-      }
+      width: 100%;
+      max-width: 300px;
     }
 
     .ant-btn {
@@ -49,18 +31,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: variables.$quaternary;
       background-color: variables.$primary;
-      .ant-table {
-        font-size: 0.85rem;
-      }
+      color: variables.$quaternary;
 
-      .ant-btn {
-        width: 100%;
+      &:hover {
+        background-color: darken(variables.$primary, 5%);
       }
-      @media (max-width: 480px) {
-        font-size: 0.85rem;
-      }
+    }
+
+    @media (max-width: variables.$breakpoint-md) {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 }
@@ -68,35 +49,20 @@
 .ant-table {
   background-color: variables.$quaternary;
   border-radius: 10px;
-  overflow: auto;
+  overflow-x: auto;
+
   .ant-table-thead > tr > th {
     background-color: variables.$primary;
     color: variables.$quaternary;
-    font-weight: bold;
     white-space: nowrap;
-
-    @media (max-width: variables.$breakpoint-md) {
-      .ant-table {
-        font-size: 0.85rem;
-      }
-    }
-
-    .ant-table-tbody > tr > td {
-      background-color: variables.$light-background-secondary;
-      word-break: break-word;
-    }
-
-    .ant-btn-dangerous {
-      border: none;
-      background: none;
-
-      &:hover {
-        background-color: rgba(255, 77, 79, 0.1);
-      }
-    }
   }
 
-  .ant-modal .ant-modal-content {
-    border-radius: 12px;
+  .ant-table-tbody > tr > td {
+    background-color: variables.$light-background-secondary;
+    word-break: break-word;
   }
+}
+
+.ant-modal .ant-modal-content {
+  border-radius: 12px;
 }

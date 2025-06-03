@@ -3,6 +3,11 @@
   margin: 0 auto;
   padding: 30px 20px;
   font-family: 'Segoe UI', sans-serif;
+   height: fit-content;
+  min-width: 80rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 
   h2 {
     font-size: 28px;

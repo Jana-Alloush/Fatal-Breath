@@ -1,11 +1,13 @@
+@use "../../variables" as variables;
+
 .gas-analytics-container {
   padding: 20px;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: variables.$font-family;
 
   h2 {
     text-align: center;
     margin-bottom: 30px;
-    color: #003366;
+    color: variables.$primary;
   }
 
   .cards-section {
@@ -16,17 +18,17 @@
     margin-bottom: 40px;
 
     .room-card {
-      background-color: #f5faff;
-      border: 1px solid #cce5ff;
+      background-color: variables.$light-background-secondary;
+      border: 1px solid variables.$light-background-tertiary;
       padding: 15px 25px;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 5px variables.$quinary;
       min-width: 200px;
       text-align: center;
 
       h4 {
         margin-bottom: 10px;
-        color: #005792;
+        color: variables.$secondary;
       }
 
       p {
@@ -34,11 +36,11 @@
       }
 
       .safe {
-        color: #28a745;
+        color: variables.$success; 
       }
 
       .danger {
-        color: #dc3545;
+        color: variables.$danger; 
         font-weight: bold;
       }
     }
@@ -51,18 +53,18 @@
     justify-content: center;
 
     .chart {
-      background: #ffffff;
-      border: 1px solid #eee;
+      background: variables.$quaternary;
+      border: 1px solid variables.$quaternary;
       border-radius: 8px;
       padding: 20px;
       width: 500px;
       max-width: 100%;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 5px variables.$quinary;
 
       h3 {
         text-align: center;
         margin-bottom: 15px;
-        color: #444;
+        color: variables.$light-text-secondary;
       }
     }
   }

@@ -12,7 +12,7 @@ const  ManagerSidebar = () => {
     <div className="manager-container">
       {/* Sidebar */}
       <aside className="sidebar">
-        <h2>Gas Monitoring</h2>
+        <h1>Fatal  Breath</h1>
         <nav>
           <div className="sidebar-section">
             <h3>Dashboard</h3>
@@ -43,18 +43,24 @@ const  ManagerSidebar = () => {
           </div>
           
           <div className="sidebar-section">
-            <h3>Analytics</h3>
+            <h3>Reports & Updates</h3>
             <Link 
               to="/manager/analytics" 
               className={isActive('/analytics') ? 'active' : ''}
             >
-              Trends
+              Analytics
             </Link>
             <Link 
               to="/manager/announcements" 
               className={isActive('/announcements') ? 'active' : ''}
             >
               Announcements
+            </Link>
+               <Link 
+              to="/manager/monitoring" 
+              className={isActive('/announcements') ? 'active' : ''}
+            >
+              Real_Time Monitoring
             </Link>
           </div>
         </nav>

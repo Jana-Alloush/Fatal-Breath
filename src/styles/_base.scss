@@ -15,7 +15,7 @@
 html {
     font-family: variables.$font-family;
     font-size: variables.$font-size-base;
-
+ 
     // Media queries for responsive font size adjustments
     @media (max-width: variables.$breakpoint-md) {
         font-size: variables.$font-size-md; 

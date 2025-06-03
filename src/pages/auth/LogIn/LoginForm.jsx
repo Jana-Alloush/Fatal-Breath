@@ -37,6 +37,7 @@ function LoginForm() {
       <div className="branding-section">
         <div className="branding-content">
           <h1 className="branding-title">FATAL BREATH</h1>
+        
           <h2 className="branding-subtitle">
             Your Guardian Angel Against Toxic Gases!
           </h2>

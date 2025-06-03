@@ -10,18 +10,17 @@ const HouseManagement = () => {
   const [form] = Form.useForm();
 
   const [houses, setHouses] = useState([
-    { key: '1', name: 'Sunset Villa', owner: 'Ahmed Karim' },
-    { key: '2', name: 'Palm Residency', owner: 'Sara Ali' },
+    { key: '1', name: 'Sunset Villa', owner: 'Ahmed Karim', location: 'Beirut' },
+    { key: '2', name: 'Palm Residency', owner: 'Sara Ali', location: 'Tripoli' },
   ]);
 
   const handleAddHouse = (newHouse) => {
     const key = Date.now().toString();
     setHouses([...houses, { ...newHouse, key }]);
-    form.resetFields(); 
-    setIsModalOpen(false); 
+    form.resetFields();
+    setIsModalOpen(false);
   };
 
-  
   const handleDelete = (key) => {
     const newData = houses.filter((item) => item.key !== key);
     setHouses(newData);
@@ -41,6 +40,12 @@ const HouseManagement = () => {
       sorter: (a, b) => a.owner.localeCompare(b.owner),
     },
     {
+      title: 'Location',
+      dataIndex: 'location',
+      key: 'location',
+      sorter: (a, b) => a.location.localeCompare(b.location),
+    },
+    {
       title: 'Actions',
       key: 'actions',
       width: 100,
@@ -55,7 +60,6 @@ const HouseManagement = () => {
     },
   ];
 
- 
   const filteredData = houses.filter((house) =>
     house.name.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -91,7 +95,7 @@ const HouseManagement = () => {
         rowKey="key"
       />
 
-      {/* modal lnzed bet*/}
+      {/* Modal: Add House */}
       <Modal
         title="Add House"
         open={isModalOpen}
@@ -106,13 +110,16 @@ const HouseManagement = () => {
           <Form.Item name="owner" label="Owner Name" rules={[{ required: true }]}>
             <Input placeholder="e.g. Ahmed Karim" />
           </Form.Item>
+          <Form.Item name="location" label="Location" rules={[{ required: true }]}>
+            <Input placeholder="e.g. Beirut" />
+          </Form.Item>
           <Button type="primary" htmlType="submit" block>
             Add
           </Button>
         </Form>
       </Modal>
 
-      {/* Modal invite */}
+      {/* Modal: Invite User */}
       <Modal
         title="Invite User"
         open={isInviteOpen}
