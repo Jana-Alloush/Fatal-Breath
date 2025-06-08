@@ -1,19 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Table,
-  Button,
-  Modal,
-  Form,
-  Input,
-  Select,
-  message,
-  Popconfirm,
-  Space,
-  Row,
-  Col,
-} from 'antd';
-import { PlusOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
-import '../../../styles/pages/manager/_roommanagement.scss';
+import React, { useEffect, useState } from "react";
+import { Table, Button, Modal, Form, Input, Select, message, Popconfirm, Row, Col } from "antd";
+import { PlusOutlined, DeleteOutlined, SearchOutlined } from "@ant-design/icons";
+import { createRoom, loadHouses, loadRooms } from "../../../root/api";
 
 const { Option } = Select;
 
@@ -22,71 +10,90 @@ const RoomManagement = () => {
   const [houses, setHouses] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    // Mock existing houses
-    setHouses([
-      { id: 1, name: 'Villa Rose' },
-      { id: 2, name: 'Skyline House' },
-    ]);
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const housesResponse = await loadHouses();
+      if (housesResponse.status === "success") {
+        setHouses(housesResponse.houses);
+      } else {
+        message.error("Failed to load houses");
+      }
 
-    // Mock room data
-    setRooms([
-      { id: 1, name: 'Living Room', houseId: 1 },
-      { id: 2, name: 'Master Bedroom', houseId: 1 },
-      { id: 3, name: 'Kitchen', houseId: 2 },
-    ]);
-  }, []);
+      const roomsResponse = await loadRooms();
+      if (roomsResponse.status === "success") {
+        setRooms(roomsResponse.rooms);
+      } else {
+        message.error("Failed to load rooms");
+      }
+    } catch (error) {
+      message.error("Error loading data");
+    }
+  };
 
-  const handleAddRoom = () => {
-    form.validateFields().then(values => {
-      const newRoom = {
-        id: rooms.length + 1,
-        name: values.name,
-        houseId: values.houseId,
-      };
-      setRooms([...rooms, newRoom]);
-      message.success('Room added successfully');
-      setIsModalVisible(false);
-      form.resetFields();
-    });
+  fetchData();
+}, []);
+
+  const handleAddRoom = async (data) => {
+    try {
+      const response = await createRoom(data.name, data.house_id, data.type);
+
+      if (response.status === "success") {
+        // إضافة الغرفة إلى القائمة محليًا
+        setRooms([...rooms, response.room]);
+        form.resetFields();
+        setIsModalVisible(false);
+        message.success("Room added successfully");
+      } else {
+        message.error("Failed to add room");
+      }
+    } catch (error) {
+      message.error(error.response?.data?.message || "Error adding room");
+    }
   };
 
   const handleDelete = (id) => {
-    setRooms(rooms.filter(room => room.id !== id));
-    message.success('Room deleted');
+    setRooms(rooms.filter((room) => room.id !== id));
+    message.success("Room deleted");
   };
 
-  const filteredRooms = rooms.filter(room => {
-    const houseName = houses.find(h => h.id === room.houseId)?.name || '';
+  const filteredRooms = rooms.filter((room) => {
+    const houseName = houses.find((h) => h.id === room.house_id)?.name || "";
     return (
       room.name.toLowerCase().includes(search.toLowerCase()) ||
       houseName.toLowerCase().includes(search.toLowerCase())
     );
   });
 
-  const columns = [
-    {
-      title: 'Room Name',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'House',
-      key: 'houseId',
-      render: (_, record) => houses.find(h => h.id === record.houseId)?.name || 'N/A',
-    },
-    {
-      title: 'Actions',
-      key: 'actions',
-      render: (_, record) => (
-        <Popconfirm title="Are you sure to delete this room?" onConfirm={() => handleDelete(record.id)}>
-          <Button danger icon={<DeleteOutlined />} />
-        </Popconfirm>
-      ),
-    },
-  ];
+ const columns = [
+  { title: "Room Name", dataIndex: "name", key: "name", sorter: (a, b) => a.name.localeCompare(b.name) },
+  {
+    title: "House",
+    key: "house_id",
+    render: (_, record) => houses.find((h) => h.id === record.house_id)?.name || "N/A",
+    sorter: (a, b) => {
+      const houseA = houses.find(h => h.id === a.house_id)?.name || "";
+      const houseB = houses.find(h => h.id === b.house_id)?.name || "";
+      return houseA.localeCompare(houseB);
+    }
+  },
+  { title: "Room Type", dataIndex: "type", key: "type", sorter: (a, b) => a.type.localeCompare(b.type) },
+  {
+    title: "Actions",
+    key: "actions",
+    render: (_, record) => (
+      <Popconfirm
+        title="Are you sure to delete this room?"
+        onConfirm={() => handleDelete(record.id)}
+      >
+        <Button danger icon={<DeleteOutlined />} />
+      </Popconfirm>
+    ),
+  },
+];
+
 
   return (
     <div className="room-page-wrapper">
@@ -101,7 +108,7 @@ const RoomManagement = () => {
               allowClear
             />
           </Col>
-          <Col xs={24} sm={12} style={{ textAlign: 'right' }}>
+          <Col xs={24} sm={12} style={{ textAlign: "right" }}>
             <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
               Add Room
             </Button>
@@ -110,31 +117,36 @@ const RoomManagement = () => {
       </div>
 
       <div className="room-table-wrapper">
-        <Table
-          dataSource={filteredRooms}
-          columns={columns}
-          rowKey="id"
-          pagination={{ pageSize: 5 }}
-        />
+        <Table dataSource={filteredRooms} columns={columns} rowKey="id" pagination={{ pageSize: 5 }} />
       </div>
 
       <Modal
         title="Add New Room"
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
-        onOk={handleAddRoom}
+        onOk={() => form.submit()}
       >
-        <Form form={form} layout="vertical">
+        <Form form={form} layout="vertical" onFinish={handleAddRoom}>
           <Form.Item label="Room Name" name="name" rules={[{ required: true }]}>
             <Input placeholder="Enter room name" />
           </Form.Item>
-          <Form.Item label="Select House" name="houseId" rules={[{ required: true }]}>
-            <Select placeholder="Select a house">
+
+          <Form.Item label="Select House" name="house_id" rules={[{ required: true }]}>
+            <Select placeholder="Select a house" showSearch optionFilterProp="children">
               {houses.map((house) => (
                 <Option key={house.id} value={house.id}>
                   {house.name}
                 </Option>
               ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Room Type" name="type" rules={[{ required: true }]}>
+            <Select placeholder="Select room type">
+              <Option value="Kitchen">Kitchen</Option>
+              <Option value="Bedroom">Bedroom</Option>
+              <Option value="Livingroom">Livingroom</Option>
+              <Option value="Bathroom">Bathroom</Option>
             </Select>
           </Form.Item>
         </Form>

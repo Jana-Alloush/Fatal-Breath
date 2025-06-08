@@ -72,3 +72,34 @@ export const loadHouses = async () => {
     throw error;
   }
 };
+
+export const createRoom = async (name, house_id,type) => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.POST,
+      route: "/user/admin/add-room",
+      body: {
+        name,
+        house_id,
+        type,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export const loadRooms = async () => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.GET,
+      route: "/user/admin/get-rooms",
+   
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

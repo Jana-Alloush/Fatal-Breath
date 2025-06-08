@@ -164,7 +164,7 @@ const HouseManagement = () => {
             label="Country"
             rules={[{ required: true }]}
           >
-            <Input placeholder="e.g. Beirut" />
+            <Input placeholder="e.g. Lebanon" />
           </Form.Item>
           <Form.Item name="city" label="city" rules={[{ required: true }]}>
             <Input placeholder="e.g. Beirut" />
