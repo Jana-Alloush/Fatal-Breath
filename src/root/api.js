@@ -41,3 +41,34 @@ export const Login = async (email, password) => {
     throw error;
   }
 };
+
+export const createHouse = async (name, city,country) => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.POST,
+      route: "/user/admin/add-house",
+      body: {
+        name,
+        city,
+        country,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export const loadHouses = async () => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.GET,
+      route: "/user/admin/get-houses",
+   
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

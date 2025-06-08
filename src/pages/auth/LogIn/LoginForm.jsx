@@ -16,14 +16,12 @@ function LoginForm() {
       e.preventDefault();
       setLoading(true);
 
-      const response = await Login(username, password);
+      await Login(username, password);
 
-      console.log("response : ", response);
-
-      console.log(localStorageAction("access_token"));
+    
       navigate("/manager");
     } catch (error) {
-      console.error("Login failed:", error);
+      
       alert("Invalid username or password.");
     } finally {
       setLoading(false);

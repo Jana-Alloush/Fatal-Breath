@@ -1,24 +1,61 @@
-import React, { useState } from 'react';
-import { Button, Input, Modal, Table, Form, Row, Col } from 'antd';
-import { PlusOutlined, DeleteOutlined, UserAddOutlined, SearchOutlined } from '@ant-design/icons';
-import '../../../styles/pages/manager/_housemanagement.scss';
+import { useState, useEffect } from "react";
+import { Button, Input, Modal, Table, Form, Row, Col } from "antd";
+import {
+  PlusOutlined,
+  DeleteOutlined,
+  UserAddOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import { createHouse, loadHouses } from "../../../root/api";
 
 const HouseManagement = () => {
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [form] = Form.useForm();
 
-  const [houses, setHouses] = useState([
-    { key: '1', name: 'Sunset Villa', owner: 'Ahmed Karim', location: 'Beirut' },
-    { key: '2', name: 'Palm Residency', owner: 'Sara Ali', location: 'Tripoli' },
-  ]);
+  const [houses, setHouses] = useState([]);
+  useEffect(() => {
+    const fetchHouses = async () => {
+      try {
+        const response = await loadHouses();
 
-  const handleAddHouse = (newHouse) => {
-    const key = Date.now().toString();
-    setHouses([...houses, { ...newHouse, key }]);
-    form.resetFields();
-    setIsModalOpen(false);
+        const loadedHouses = response.houses.map((house) => ({
+          ...house,
+          key: house.id.toString(),
+        }));
+
+        setHouses(loadedHouses);
+      } catch (error) {
+        console.error(
+          "Failed to load house:",
+          error.response?.data || error.message
+        );
+      }
+    };
+
+    fetchHouses();
+  }, []);
+
+  const handleAddHouse = async (data) => {
+    try {
+      const response = await createHouse(data.name, data.city, data.country);
+
+      console.log(response);
+      const addedHouse = {
+        ...response.house,
+        key: response.house.id.toString(),
+      };
+
+      setHouses([...houses, addedHouse]);
+      form.resetFields();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(
+        "Failed to add house:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   const handleDelete = (key) => {
@@ -28,26 +65,27 @@ const HouseManagement = () => {
 
   const columns = [
     {
-      title: 'House Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: "House Name",
+      dataIndex: "name",
+      key: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
+
     {
-      title: 'Owner',
-      dataIndex: 'owner',
-      key: 'owner',
-      sorter: (a, b) => a.owner.localeCompare(b.owner),
+      title: "country",
+      dataIndex: "country",
+      key: "country",
+      sorter: (a, b) => a.country.localeCompare(b.country),
     },
     {
-      title: 'Location',
-      dataIndex: 'location',
-      key: 'location',
-      sorter: (a, b) => a.location.localeCompare(b.location),
+      title: "city",
+      dataIndex: "city",
+      key: "city",
+      sorter: (a, b) => a.city.localeCompare(b.city),
     },
     {
-      title: 'Actions',
-      key: 'actions',
+      title: "Actions",
+      key: "actions",
       width: 100,
       render: (_, record) => (
         <Button
@@ -77,12 +115,21 @@ const HouseManagement = () => {
           />
         </Col>
         <Col xs={12} sm={6}>
-          <Button type="primary" icon={<PlusOutlined />} block onClick={() => setIsModalOpen(true)}>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            block
+            onClick={() => setIsModalOpen(true)}
+          >
             Add House
           </Button>
         </Col>
         <Col xs={12} sm={6}>
-          <Button icon={<UserAddOutlined />} block onClick={() => setIsInviteOpen(true)}>
+          <Button
+            icon={<UserAddOutlined />}
+            block
+            onClick={() => setIsInviteOpen(true)}
+          >
             Invite User
           </Button>
         </Col>
@@ -104,13 +151,22 @@ const HouseManagement = () => {
         centered
       >
         <Form layout="vertical" form={form} onFinish={handleAddHouse}>
-          <Form.Item name="name" label="House Name" rules={[{ required: true }]}>
+          <Form.Item
+            name="name"
+            label="House Name"
+            rules={[{ required: true }]}
+          >
             <Input placeholder="e.g. Sunset Estate" />
           </Form.Item>
-          <Form.Item name="owner" label="Owner Name" rules={[{ required: true }]}>
-            <Input placeholder="e.g. Ahmed Karim" />
+
+          <Form.Item
+            name="country"
+            label="Country"
+            rules={[{ required: true }]}
+          >
+            <Input placeholder="e.g. Beirut" />
           </Form.Item>
-          <Form.Item name="location" label="Location" rules={[{ required: true }]}>
+          <Form.Item name="city" label="city" rules={[{ required: true }]}>
             <Input placeholder="e.g. Beirut" />
           </Form.Item>
           <Button type="primary" htmlType="submit" block>
@@ -128,7 +184,11 @@ const HouseManagement = () => {
         centered
       >
         <Form layout="vertical">
-          <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email' }]}>
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[{ required: true, type: "email" }]}
+          >
             <Input placeholder="example@email.com" />
           </Form.Item>
           <Button type="primary" htmlType="submit" block>
