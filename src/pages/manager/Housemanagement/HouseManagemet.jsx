@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Button, Input, Modal, Table, Form, Row, Col } from "antd";
+import { Button, Input, Modal, Table, Form, Row, Col, Popconfirm } from "antd";
 import {
   PlusOutlined,
   DeleteOutlined,
   UserAddOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { createHouse, loadHouses } from "../../../root/api";
+import { createHouse, loadHouses, deleteHouse } from "../../../root/api";
 
 const HouseManagement = () => {
   const [searchText, setSearchText] = useState("");
@@ -58,9 +58,17 @@ const HouseManagement = () => {
     }
   };
 
-  const handleDelete = (key) => {
-    const newData = houses.filter((item) => item.key !== key);
-    setHouses(newData);
+  const handleDelete = async (key) => {
+    try {
+      await deleteHouse(key);
+      const newData = houses.filter((item) => item.key !== key); 
+      setHouses(newData);
+    } catch (error) {
+      console.error(
+        "Failed to delete house:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   const columns = [
@@ -88,19 +96,26 @@ const HouseManagement = () => {
       key: "actions",
       width: 100,
       render: (_, record) => (
-        <Button
-          danger
-          icon={<DeleteOutlined />}
-          size="small"
-          onClick={() => handleDelete(record.key)}
-        />
+        <Popconfirm
+          title="Are you sure to delete this house?"
+          onConfirm={() => handleDelete(record.key)}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button danger icon={<DeleteOutlined />} size="small" />
+        </Popconfirm>
       ),
     },
   ];
 
-  const filteredData = houses.filter((house) =>
-    house.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filteredData = houses.filter((house) => {
+    const lowerSearch = searchText.toLowerCase();
+    return (
+      house.name.toLowerCase().includes(lowerSearch) ||
+      house.city.toLowerCase().includes(lowerSearch) ||
+      house.country.toLowerCase().includes(lowerSearch)
+    );
+  });
 
   return (
     <div className="house-management-container">

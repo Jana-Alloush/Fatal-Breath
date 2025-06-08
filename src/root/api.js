@@ -103,3 +103,27 @@ export const loadRooms = async () => {
     throw error;
   }
 };
+export const deleteRoom = async (roomId) => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.DELETE,
+      route: `/user/admin/room/${roomId}`,
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+export const deleteHouse = async (houseId) => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.DELETE,
+      route: `/user/admin/house/${houseId}`,
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

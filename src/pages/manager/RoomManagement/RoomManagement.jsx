@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Table, Button, Modal, Form, Input, Select, message, Popconfirm, Row, Col } from "antd";
 import { PlusOutlined, DeleteOutlined, SearchOutlined } from "@ant-design/icons";
-import { createRoom, loadHouses, loadRooms } from "../../../root/api";
+import { createRoom, loadHouses, loadRooms,deleteRoom  } from "../../../root/api";
 
 const { Option } = Select;
 
@@ -54,18 +54,28 @@ const RoomManagement = () => {
     }
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+  try {
+    await deleteRoom(id);
     setRooms(rooms.filter((room) => room.id !== id));
-    message.success("Room deleted");
-  };
-
+    message.success("Room deleted successfully");
+  } catch (error) {
+    message.error(error.response?.data?.message || "Failed to delete room");
+  }
+};
   const filteredRooms = rooms.filter((room) => {
-    const houseName = houses.find((h) => h.id === room.house_id)?.name || "";
-    return (
-      room.name.toLowerCase().includes(search.toLowerCase()) ||
-      houseName.toLowerCase().includes(search.toLowerCase())
-    );
-  });
+  const roomName = room.name?.toLowerCase() || "";
+  const houseName = houses.find((h) => h.id === room.house_id)?.name?.toLowerCase() || "";
+  const roomType = room.type?.toLowerCase() || "";
+  const searchText = search.toLowerCase();
+
+  return (
+    roomName.includes(searchText) ||
+    houseName.includes(searchText) ||
+    roomType.includes(searchText)
+  );
+});
+
 
  const columns = [
   { title: "Room Name", dataIndex: "name", key: "name", sorter: (a, b) => a.name.localeCompare(b.name) },
