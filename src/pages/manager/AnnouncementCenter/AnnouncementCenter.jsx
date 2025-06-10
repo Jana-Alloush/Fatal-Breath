@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../../styles/pages/manager/AnnouncementCenter.scss';
+
 
 const AnnouncementCenter = () => {
   const [announcements, setAnnouncements] = useState([

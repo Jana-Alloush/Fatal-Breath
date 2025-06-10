@@ -127,3 +127,26 @@ export const deleteHouse = async (houseId) => {
     throw error;
   }
 };
+export const loadRoomsFromAdminHouses = async (houseId) => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.GET,
+      route: "/user/admin/get-houses",
+    });
+
+    const houses = response.houses || [];
+    const house = houses.find((h) => h.id === parseInt(houseId));
+
+    if (!house) return [];
+
+    const rooms = house.rooms.map((room) => ({
+      ...room,
+      houseName: house.name, 
+    }));
+
+    return rooms;
+  } catch (error) {
+    throw error;
+  }
+};
+

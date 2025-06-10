@@ -1,10 +1,22 @@
 import { useState, useEffect } from "react";
-import { Button, Input, Modal, Table, Form, Row, Col, Popconfirm } from "antd";
+import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  Input,
+  Modal,
+  Table,
+  Form,
+  Row,
+  Col,
+  Tooltip,
+  Popconfirm,
+} from "antd";
 import {
   PlusOutlined,
   DeleteOutlined,
   UserAddOutlined,
   SearchOutlined,
+  AppstoreOutlined,
 } from "@ant-design/icons";
 import { createHouse, loadHouses, deleteHouse } from "../../../root/api";
 
@@ -13,6 +25,7 @@ const HouseManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const [houses, setHouses] = useState([]);
   useEffect(() => {
@@ -61,7 +74,7 @@ const HouseManagement = () => {
   const handleDelete = async (key) => {
     try {
       await deleteHouse(key);
-      const newData = houses.filter((item) => item.key !== key); 
+      const newData = houses.filter((item) => item.key !== key);
       setHouses(newData);
     } catch (error) {
       console.error(
@@ -70,6 +83,10 @@ const HouseManagement = () => {
       );
     }
   };
+  const handleShowRooms = (houseId) => {
+  navigate(`/houses/${houseId}/rooms`);
+};
+
 
   const columns = [
     {
@@ -94,16 +111,30 @@ const HouseManagement = () => {
     {
       title: "Actions",
       key: "actions",
-      width: 100,
+      width: 150,
       render: (_, record) => (
-        <Popconfirm
-          title="Are you sure to delete this house?"
-          onConfirm={() => handleDelete(record.key)}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button danger icon={<DeleteOutlined />} size="small" />
-        </Popconfirm>
+        <div style={{ display: "flex", gap: 8 }}>
+          <Tooltip title="View Rooms">
+            <Button
+              icon={<AppstoreOutlined />}
+              size="small"
+              onClick={() => handleShowRooms(record.key)}
+              style={{
+                color: "#1890ff",
+                backgroundColor: "#f0f5ff",
+                borderColor: "#91d5ff",
+              }} // Light blue
+            />
+          </Tooltip>
+          <Popconfirm
+            title="Are you sure to delete this house?"
+            onConfirm={() => handleDelete(record.key)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button danger icon={<DeleteOutlined />} size="small" />
+          </Popconfirm>
+        </div>
       ),
     },
   ];

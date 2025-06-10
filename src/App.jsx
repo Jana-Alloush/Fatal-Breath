@@ -3,8 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginForm from "./pages/auth/LogIn/LoginForm";
 import SignUpForm from "./pages/auth/SignUp/SignUpForm";
 import ManagerLayout from "./Components/Layouts/ManagerLayout";
+import RoomView from "./pages/manager/RoomManagement/ViewRooms"; // عدّل المسار حسب الملف الحقيقي
 
 // manager Pages
+
 import OverviewPage from "./pages/manager/OverviewPage/OverviewPage";
 import RoomManagement from "./pages/manager/RoomManagement/RoomManagement";
 import Monitoring from "./pages/manager/RealTimeMonitoring/RealTimeMonitoring";
@@ -34,8 +36,12 @@ function App() {
           <Route path="monitoring" element={<Monitoring />} />
           <Route path="announcements" element={<AnnouncementCenter />} />
           <Route path="analytics" element={<Analytics />} />
+          
         </Route>
+      
+      <Route path="/houses/:houseId/rooms" element={<RoomView />} />
       </Routes>
+
     </BrowserRouter>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../styles/pages/manager/OverviewPage.scss';
+
 import { FaHome, FaDoorOpen, FaBell, FaExclamationTriangle, FaBullhorn } from 'react-icons/fa';
 
 const OverviewPage = () => {
