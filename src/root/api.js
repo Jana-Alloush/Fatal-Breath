@@ -3,19 +3,23 @@ import { localStorageAction } from "../core/config/localstorage";
 import { sendRequest } from "../core/config/request";
 import { requestMethods } from "../core/enums/requestMethods";
 
-export const RegisterUser = async (company_name, email, password, phone_nb) => {
+export const RegisterUser = async (name,username, email, password, role) => {
   try {
     const response = await sendRequest({
-      route: "/guest/register",
+     
       method: requestMethods.POST,
+       route: "/auth/register",
       body: {
-        company_name,
+        name,
+        username,
         email,
-        phone_nb,
+        role,
         password,
       },
     });
 
+    localStorageAction("access_token", response.user.token);
+    localStorageAction("user_data", response.user);
     return response;
   } catch (error) {
     throw error;

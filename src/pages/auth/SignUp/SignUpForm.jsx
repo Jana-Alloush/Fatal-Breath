@@ -2,32 +2,39 @@ import React, { useState } from "react";
 import { FaUser, FaLock, FaEnvelope, FaPhone } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
+import { RegisterUser } from "../../../root/api";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-
+ const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+ 
+  const [role, setrole] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle sign up logic here
-  };
-
+  const handleSubmit = async (e) => {
+     try {
+       e.preventDefault();
+       setLoading(true);
+ 
+       await RegisterUser(name,username, email, password, role)
+ 
+     
+       navigate("/");
+     } catch (error) {
+       console.error("Registration Error:", error);
+  alert(error.message || "Invalid username or password.");
+     } finally {
+       setLoading(false);
+     }
+   };
   const handleLoginClick = (e) => {
     e.preventDefault();
     navigate("/");
   };
 
-  /*const SignUpForm = ({ onSwitch }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle sign up logic here
-  };
-
-  const handleLoginClick = (e) => {
-    e.preventDefault();
-    onSwitch(); // Switch to login form
-  };*/
 
   return (
     <div className="wrapper">
@@ -35,10 +42,19 @@ const SignUpForm = () => {
         <h1 className="title">Create Account</h1>
 
         <div className="input-box">
-          <input type="text" placeholder="Full Name" required />
+          <input type="text" value={name}   onChange={(e) => setName(e.target.value)} placeholder="Full Name" required />
           <FaUser className="icon" />
         </div>
-
+        <div className="input-box">
+          <input
+            type="text"
+            value={username}
+             onChange={(e) => setUsername(e.target.value)}
+            placeholder="User Name"
+            required
+          />
+          <FaUser className="icon" />
+        </div>
         <div className="input-box">
           <input
             type="email"
@@ -51,19 +67,22 @@ const SignUpForm = () => {
         </div>
 
         <div className="input-box">
-          <input type="tel" placeholder="Phone Number" required />
+          <input
+            type="itext"
+            value={role}
+            onChange={(e) => setrole(e.target.value)}
+            placeholder="role"
+            required
+          />
           <FaPhone className="icon" />
         </div>
 
         <div className="input-box">
-          <input type="password" placeholder="Password" required />
+          <input type="password"   onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
           <FaLock className="icon" />
         </div>
 
-        <div className="input-box">
-          <input type="password" placeholder="Confirm Password" required />
-          <FaLock className="icon" />
-        </div>
+      
 
         <div className="terms">
           <label>
