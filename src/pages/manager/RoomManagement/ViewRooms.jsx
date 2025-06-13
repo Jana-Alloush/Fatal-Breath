@@ -32,8 +32,11 @@ const RoomView = () => {
         setRooms(roomsData);
 
         const houseData = await loadHouses();
-        setHouseName(houseData.name);
+         setHouseName(houseData.name);
+      
       } catch (error) {
+        
+
         console.error("Error loading rooms or house name:", error);
       }
     };
@@ -105,7 +108,7 @@ const RoomView = () => {
 
   return (
     <div className="room-view-container">
-      <h2>Rooms in House: {houseName || `#${houseId}`}</h2>
+      <h2>Rooms in House: {houseName}</h2>
 
       <Button
         type="primary"
@@ -121,6 +124,7 @@ const RoomView = () => {
         rowKey="id"
         pagination={{ pageSize: 10 }}
         size="large"
+      
       />
 
       <Modal
