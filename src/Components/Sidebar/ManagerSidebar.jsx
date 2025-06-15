@@ -1,29 +1,40 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   AiFillDashboard,
   AiFillHome,
-  AiFillShop,
   AiOutlineUser,
   AiOutlineAreaChart,
   AiOutlineNotification,
   AiOutlineMonitor,
-  AiFillNotification,
 } from "react-icons/ai";
 
-const ManagerSidebar = () => {
+const ManagerSidebar = ({ isOpen, closeSidebar }) => {
   const location = useLocation();
 
   const isActive = (path) => location.pathname.includes(path);
 
+  const handleLinkClick = () => {
+    // Close sidebar on mobile when a link is clicked
+    if (window.innerWidth <= 768) {
+      closeSidebar();
+    }
+  };
+
   return (
-    <div className="sidebar">
+    <aside className={`sidebar ${isOpen ? "open" : ""}`}>
       <h1 className="sidebar-logo">Fatal Breath</h1>
       <nav>
         <div className="sidebar-section">
           <h3>Dashboard</h3>
           <Link
             to="/manager"
-            className={isActive("/dashboard") ? "active" : ""}
+            className={
+              isActive("/manager") && location.pathname === "/manager"
+                ? "active"
+                : ""
+            }
+            onClick={handleLinkClick}
           >
             <AiFillDashboard className="icon" />
             Overview
@@ -31,20 +42,15 @@ const ManagerSidebar = () => {
           <Link
             to="/manager/houses"
             className={isActive("/houses") ? "active" : ""}
+            onClick={handleLinkClick}
           >
             <AiFillHome className="icon" />
             Houses
           </Link>
-          {/* <Link
-              to="/manager/rooms"
-              className={isActive("/rooms") ? "active" : ""}
-            >
-              <AiFillShop className="icon" />
-              Rooms
-            </Link> */}
           <Link
             to="/manager/users"
             className={isActive("/users") ? "active" : ""}
+            onClick={handleLinkClick}
           >
             <AiOutlineUser className="icon" />
             Users
@@ -56,6 +62,7 @@ const ManagerSidebar = () => {
           <Link
             to="/manager/analytics"
             className={isActive("/analytics") ? "active" : ""}
+            onClick={handleLinkClick}
           >
             <AiOutlineAreaChart className="icon" />
             Analytics
@@ -63,21 +70,22 @@ const ManagerSidebar = () => {
           <Link
             to="/manager/announcements"
             className={isActive("/announcements") ? "active" : ""}
+            onClick={handleLinkClick}
           >
             <AiOutlineNotification className="icon" />
             Announcements
           </Link>
-
           <Link
             to="/manager/monitoring"
             className={isActive("/monitoring") ? "active" : ""}
+            onClick={handleLinkClick}
           >
             <AiOutlineMonitor className="icon" />
             Real-Time Monitoring
           </Link>
         </div>
       </nav>
-    </div>
+    </aside>
   );
 };
 
