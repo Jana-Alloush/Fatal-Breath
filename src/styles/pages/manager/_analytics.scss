@@ -1,9 +1,6 @@
 @use "../../variables" as variables;
 
 .gas-analytics-container {
-  padding: 20px;
-  font-family: variables.$font-family;
-
   h2 {
     text-align: center;
     margin-bottom: 30px;
@@ -36,11 +33,11 @@
       }
 
       .safe {
-        color: variables.$success; 
+        color: variables.$success;
       }
 
       .danger {
-        color: variables.$danger; 
+        color: variables.$danger;
         font-weight: bold;
       }
     }

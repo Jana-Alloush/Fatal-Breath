@@ -1,14 +1,6 @@
 @use "../../variables" as variables;
 
 .room-view-container {
-  padding: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-  background-color: variables.$light-background-secondary;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 39, 102, 0.1);
-  font-family: variables.$font-family;
-
   h2 {
     text-align: center;
     font-size: variables.$font-size-xl;

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../../../styles/pages/manager/_monitor.scss";
 
 const RealTimeMonitoring = () => {
   const [houses, setHouses] = useState([]);
@@ -44,10 +43,7 @@ const RealTimeMonitoring = () => {
 
             <div className="rooms-container">
               {house.rooms.map((room, idx) => (
-                <div
-                  key={idx}
-                  className={`room-card ${getStatus(room.level)}`}
-                >
+                <div key={idx} className={`room-card ${getStatus(room.level)}`}>
                   <h4>{room.name}</h4>
                   <p>{room.level.toFixed(2)} ppm</p>
                   <span className="status">

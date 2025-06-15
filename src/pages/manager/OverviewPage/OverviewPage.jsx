@@ -1,6 +1,10 @@
-import React from 'react';
-
-import { FaHome, FaDoorOpen, FaBell, FaExclamationTriangle, FaBullhorn } from 'react-icons/fa';
+import {
+  FaHome,
+  FaDoorOpen,
+  FaBell,
+  FaExclamationTriangle,
+  FaBullhorn,
+} from "react-icons/fa";
 
 const OverviewPage = () => {
   // Replace with API data
@@ -12,13 +16,13 @@ const OverviewPage = () => {
   };
 
   const recentAlerts = [
-    { id: 1, room: 'Kitchen', level: 85, time: '10:15 AM' },
-    { id: 2, room: 'Garage', level: 78, time: '08:45 AM' },
+    { id: 1, room: "Kitchen", level: 85, time: "10:15 AM" },
+    { id: 2, room: "Garage", level: 78, time: "08:45 AM" },
   ];
 
   const announcements = [
-    { id: 1, title: 'Sensor maintenance today', time: 'Today - 9:00 AM' },
-    { id: 2, title: 'New CO threshold updated', time: 'Yesterday - 3:00 PM' },
+    { id: 1, title: "Sensor maintenance today", time: "Today - 9:00 AM" },
+    { id: 2, title: "New CO threshold updated", time: "Yesterday - 3:00 PM" },
   ];
 
   return (
@@ -50,10 +54,14 @@ const OverviewPage = () => {
 
       <div className="info-section">
         <div className="recent">
-          <h3><FaExclamationTriangle /> Recent Alerts</h3>
-          {recentAlerts.length === 0 ? <p>No recent alerts.</p> : (
+          <h3>
+            <FaExclamationTriangle /> Recent Alerts
+          </h3>
+          {recentAlerts.length === 0 ? (
+            <p>No recent alerts.</p>
+          ) : (
             <ul>
-              {recentAlerts.map(alert => (
+              {recentAlerts.map((alert) => (
                 <li key={alert.id}>
                   🚨 {alert.room} – {alert.level} ppm <span>{alert.time}</span>
                 </li>
@@ -63,10 +71,14 @@ const OverviewPage = () => {
         </div>
 
         <div className="recent">
-          <h3><FaBullhorn /> Announcements</h3>
-          {announcements.length === 0 ? <p>No announcements yet.</p> : (
+          <h3>
+            <FaBullhorn /> Announcements
+          </h3>
+          {announcements.length === 0 ? (
+            <p>No announcements yet.</p>
+          ) : (
             <ul>
-              {announcements.map(ann => (
+              {announcements.map((ann) => (
                 <li key={ann.id}>
                   📢 {ann.title} <span>{ann.time}</span>
                 </li>

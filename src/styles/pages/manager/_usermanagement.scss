@@ -1,17 +1,6 @@
 @use "../../variables" as variables;
 
 .user-page-wrapper {
-   padding: 20px;
-  background-color: variables.$light-background;
-  min-height: 100vh;
-  font-family: variables.$font-family;
-  height: fit-content;
-  min-width: 80rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  width: 100%;
-
   @media (max-width: variables.$breakpoint-md) {
     padding: 15px;
     margin-left: 0;
@@ -26,15 +15,14 @@
       }
     }
   }
-.ant-btn{
-  background-color: variables.$primary;
-  color:variables.$quaternary
-}
+  .ant-btn {
+    background-color: variables.$primary;
+    color: variables.$quaternary;
+  }
   .user-table-wrapper {
     background-color: variables.$quaternary;
     padding: 20px;
     border-radius: 10px;
-   
 
     @media (max-width: variables.$breakpoint-md) {
       padding: 10px;

@@ -2,14 +2,10 @@
 @forward "./admin/users";
 
 // Manager Pages
-@forward "./manager/monitor";
+@forward "./manager/all";
 
 // Common Pages
 @forward "./common/dashboard";
 
 // Auth Pages
 @forward "./auth/all";
-
-@forward "./manager/all";
-
-@forward"../components/sidebar/managersidebar"

@@ -1,65 +1,68 @@
-@use '../../variables' as variables;
+@use "../../variables" as variables;
 
 .manager-container {
   display: flex;
   gap: 1rem;
   min-height: 100vh;
-
-  font-family: variables.$font-family;
+  width: 100vw;
+  overflow: hidden;
 
   .main-content {
-    margin-left: 220px;
-
+    margin-left: 15rem;
+    width: calc(100% - 15rem);
+    min-height: 100vh;
     background-color: variables.$light-background;
     color: variables.$light-text;
     padding: 1.5rem;
-    flex: 1;
+
+    display: flex; // Enable flex layout for inner content
+    flex-direction: column; // Stack content vertically
+    align-items: center; // Center content horizontally
+
+    overflow-y: auto;
+
+    .main-inner {
+      width: 100%;
+      max-width: 64rem; // e.g., 1024px
+      flex-grow: 1; // Allow to stretch if needed
+      border: 1px red solid;
+    }
   }
 
   .sidebar {
-    width: 220px;
-    background-color: variables.$dark-background-secondary;
-    color: variables.$dark-text;
-    padding: 20px;
+    width: 15rem;
     position: fixed;
-    left: 0;
     top: 0;
     bottom: 0;
-    z-index: 100;
+    left: 0;
+    padding: 1.25rem;
+    background-color: variables.$dark-background-secondary;
+    color: variables.$dark-text;
     overflow-y: auto;
-    font-size: variables.$font-size-sm; // 18px من متغيراتك
+    z-index: 100;
+    font-size: variables.$font-size-sm; // Assume this equals 1.125rem
 
     h1.sidebar-logo {
-      font-size: 1.5rem; // أكبر من المتغيرات لعنوان الشعار
-      margin-bottom: 30px;
+      font-size: 1.5rem; // Slightly larger than base
+      margin-bottom: 1.875rem; // 30px
       color: variables.$quaternary;
       font-weight: 700;
       text-align: center;
     }
 
     .sidebar-section {
-      margin-bottom: 20px;
-
-      h3 {
-        font-size: variables.$font-size-base; // 16px
-        color: variables.$dark-text-secondary;
-        margin: 20px 0 10px 15px;
-        text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 1px;
-      }
+      margin-bottom: 1.25rem; // 20px
     }
 
     a {
       color: variables.$dark-text-secondary;
       text-decoration: none;
-      margin: 8px 0;
-      padding: 12px 18px;
-      border-radius: 12px;
+      margin: 0.5rem 0; // 8px 0
+      padding: 0.75rem 1.125rem; // 12px 18px
+      border-radius: 0.75rem; // 12px
       transition: all 0.3s;
       display: flex;
       align-items: center;
-      font-size: variables.$font-size-base; // 16px
       font-weight: 600;
 
       &:hover,
@@ -70,9 +73,8 @@
     }
 
     .icon {
-      margin-right: 12px;
-      font-size: 1.4rem; 
+      margin-right: 0.75rem; // 12px
+      font-size: 1.4rem;
     }
   }
-  
 }

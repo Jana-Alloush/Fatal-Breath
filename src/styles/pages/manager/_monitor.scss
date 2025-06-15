@@ -1,13 +1,6 @@
 @use "../../variables" as variables;
 
 .real-time-monitoring {
-  padding: 20px;
-  font-family: variables.$font-family;
-   height: fit-content;
-  min-width: 80rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
   h2 {
     text-align: center;
     color: variables.$primary;

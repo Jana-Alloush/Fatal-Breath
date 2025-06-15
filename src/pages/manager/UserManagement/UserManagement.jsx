@@ -1,11 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
-  Table, Button, Modal, Form, Input, Select, Popconfirm, message, Space, Tag, Row, Col
-} from 'antd';
+  Table,
+  Button,
+  Modal,
+  Form,
+  Input,
+  Select,
+  Popconfirm,
+  message,
+  Space,
+  Tag,
+  Row,
+  Col,
+} from "antd";
 import {
-  PlusOutlined, EditOutlined, DeleteOutlined, DownloadOutlined, SearchOutlined
-} from '@ant-design/icons';
-import '../../../styles/pages/manager/_usermanagement.scss';
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  DownloadOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 
 const { Option } = Select;
 
@@ -15,13 +29,25 @@ const UserManagement = () => {
   const [form] = Form.useForm();
   const [editingUser, setEditingUser] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [search, setSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   useEffect(() => {
     const dummyUsers = [
-      { id: 1, name: 'Lina Haddad', email: 'lina@example.com', status: 'active', lastLogin: '2025-05-22' },
-      { id: 2, name: 'Ahmad Saad', email: 'ahmad@example.com', status: 'inactive', lastLogin: '2025-05-20' }
+      {
+        id: 1,
+        name: "Lina Haddad",
+        email: "lina@example.com",
+        status: "active",
+        lastLogin: "2025-05-22",
+      },
+      {
+        id: 2,
+        name: "Ahmad Saad",
+        email: "ahmad@example.com",
+        status: "inactive",
+        lastLogin: "2025-05-20",
+      },
     ];
     setUsers(dummyUsers);
     setFilteredUsers(dummyUsers);
@@ -30,52 +56,61 @@ const UserManagement = () => {
   useEffect(() => {
     let data = [...users];
     if (search) {
-      data = data.filter(user =>
-        user.name.toLowerCase().includes(search.toLowerCase()) ||
-        user.email.toLowerCase().includes(search.toLowerCase())
+      data = data.filter(
+        (user) =>
+          user.name.toLowerCase().includes(search.toLowerCase()) ||
+          user.email.toLowerCase().includes(search.toLowerCase())
       );
     }
-    if (statusFilter !== 'all') {
-      data = data.filter(user => user.status === statusFilter);
+    if (statusFilter !== "all") {
+      data = data.filter((user) => user.status === statusFilter);
     }
     setFilteredUsers(data);
   }, [search, statusFilter, users]);
 
   const openModal = (user = null) => {
     setEditingUser(user);
-    form.setFieldsValue(user || { name: '', email: '', status: 'active' });
+    form.setFieldsValue(user || { name: "", email: "", status: "active" });
     setModalVisible(true);
   };
 
   const handleSave = () => {
-    form.validateFields().then(values => {
+    form.validateFields().then((values) => {
       if (editingUser) {
-        setUsers(prev => prev.map(u => (u.id === editingUser.id ? { ...editingUser, ...values } : u)));
-        message.success('User updated');
+        setUsers((prev) =>
+          prev.map((u) =>
+            u.id === editingUser.id ? { ...editingUser, ...values } : u
+          )
+        );
+        message.success("User updated");
       } else {
         const newUser = {
           id: Date.now(),
           ...values,
-          lastLogin: new Date().toISOString().split('T')[0]
+          lastLogin: new Date().toISOString().split("T")[0],
         };
-        setUsers(prev => [...prev, newUser]);
-        message.success('User added');
+        setUsers((prev) => [...prev, newUser]);
+        message.success("User added");
       }
       setModalVisible(false);
       form.resetFields();
     });
   };
 
-  const handleDelete = id => {
-    setUsers(prev => prev.filter(user => user.id !== id));
-    message.success('User deleted');
+  const handleDelete = (id) => {
+    setUsers((prev) => prev.filter((user) => user.id !== id));
+    message.success("User deleted");
   };
 
   const exportCSV = () => {
-    const csvContent = "data:text/csv;charset=utf-8," + [
-      ['Name', 'Email', 'Status', 'Last Login'],
-      ...users.map(u => [u.name, u.email, u.status, u.lastLogin])
-    ].map(e => e.join(',')).join('\n');
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [
+        ["Name", "Email", "Status", "Last Login"],
+        ...users.map((u) => [u.name, u.email, u.status, u.lastLogin]),
+      ]
+        .map((e) => e.join(","))
+        .join("\n");
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
@@ -86,38 +121,45 @@ const UserManagement = () => {
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name'
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email'
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
     },
     {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      render: status => <Tag color={status === 'active' ? 'green' : 'red'}>{status.toUpperCase()}</Tag>
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => (
+        <Tag color={status === "active" ? "green" : "red"}>
+          {status.toUpperCase()}
+        </Tag>
+      ),
     },
     {
-      title: 'Last Login',
-      dataIndex: 'lastLogin',
-      key: 'lastLogin'
+      title: "Last Login",
+      dataIndex: "lastLogin",
+      key: "lastLogin",
     },
     {
-      title: 'Actions',
-      key: 'actions',
+      title: "Actions",
+      key: "actions",
       render: (_, record) => (
         <Space>
           <Button icon={<EditOutlined />} onClick={() => openModal(record)} />
-          <Popconfirm title="Are you sure?" onConfirm={() => handleDelete(record.id)}>
+          <Popconfirm
+            title="Are you sure?"
+            onConfirm={() => handleDelete(record.id)}
+          >
             <Button danger icon={<DeleteOutlined />} />
           </Popconfirm>
         </Space>
-      )
-    }
+      ),
+    },
   ];
 
   return (
@@ -129,7 +171,7 @@ const UserManagement = () => {
               placeholder="Search by name or email"
               prefix={<SearchOutlined />}
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               allowClear
             />
           </Col>
@@ -137,7 +179,7 @@ const UserManagement = () => {
             <Select
               value={statusFilter}
               onChange={setStatusFilter}
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
             >
               <Option value="all">All</Option>
               <Option value="active">Active</Option>
@@ -149,8 +191,12 @@ const UserManagement = () => {
               Export CSV
             </Button>
           </Col>
-          <Col xs={24} sm={5} style={{ textAlign: 'right' }}>
-            <Button type="primary" icon={<PlusOutlined />} onClick={() => openModal()}>
+          <Col xs={24} sm={5} style={{ textAlign: "right" }}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => openModal()}
+            >
               Add User
             </Button>
           </Col>
@@ -167,7 +213,7 @@ const UserManagement = () => {
       </div>
 
       <Modal
-        title={editingUser ? 'Edit User' : 'Add User'}
+        title={editingUser ? "Edit User" : "Add User"}
         open={modalVisible}
         onCancel={() => setModalVisible(false)}
         onOk={handleSave}
@@ -176,7 +222,11 @@ const UserManagement = () => {
           <Form.Item label="Name" name="name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item label="Email" name="email" rules={[{ required: true, type: 'email' }]}>
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[{ required: true, type: "email" }]}
+          >
             <Input />
           </Form.Item>
           <Form.Item label="Status" name="status" rules={[{ required: true }]}>
