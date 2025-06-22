@@ -1,14 +1,13 @@
 /* eslint-disable no-useless-catch */
 import { localStorageAction } from "../core/config/localstorage";
-import { sendRequest } from "../core/config/request";
 import { requestMethods } from "../core/enums/requestMethods";
+import { sendRequest } from "../core/config/request";
 
-export const RegisterUser = async (name,username, email, password, role) => {
+export const RegisterUser = async (name, username, email, password, role) => {
   try {
     const response = await sendRequest({
-     
       method: requestMethods.POST,
-       route: "/auth/register",
+      route: "/auth/register",
       body: {
         name,
         username,
@@ -46,7 +45,7 @@ export const Login = async (email, password) => {
   }
 };
 
-export const createHouse = async (name, city,country) => {
+export const createHouse = async (name, city, country) => {
   try {
     const response = await sendRequest({
       method: requestMethods.POST,
@@ -68,7 +67,6 @@ export const loadHouses = async () => {
     const response = await sendRequest({
       method: requestMethods.GET,
       route: "/user/admin/get-houses",
-   
     });
 
     return response;
@@ -77,7 +75,7 @@ export const loadHouses = async () => {
   }
 };
 
-export const createRoom = async (name, house_id,type) => {
+export const createRoom = async (name, house_id, type) => {
   try {
     const response = await sendRequest({
       method: requestMethods.POST,
@@ -99,7 +97,6 @@ export const loadRooms = async () => {
     const response = await sendRequest({
       method: requestMethods.GET,
       route: "/user/admin/get-rooms",
-   
     });
 
     return response;
@@ -145,7 +142,7 @@ export const loadRoomsFromAdminHouses = async (houseId) => {
 
     const rooms = house.rooms.map((room) => ({
       ...room,
-      houseName: house.name, 
+      houseName: house.name,
     }));
 
     return rooms;
@@ -153,4 +150,3 @@ export const loadRoomsFromAdminHouses = async (houseId) => {
     throw error;
   }
 };
-
