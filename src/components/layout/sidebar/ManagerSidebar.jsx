@@ -56,34 +56,6 @@ const ManagerSidebar = ({ isOpen, closeSidebar }) => {
             Users
           </Link>
         </div>
-
-        <div className="sidebar-section">
-          <h3>Reports & Updates</h3>
-          <Link
-            to="/manager/analytics"
-            className={isActive("/analytics") ? "active" : ""}
-            onClick={handleLinkClick}
-          >
-            <AiOutlineAreaChart className="icon" />
-            Analytics
-          </Link>
-          <Link
-            to="/manager/announcements"
-            className={isActive("/announcements") ? "active" : ""}
-            onClick={handleLinkClick}
-          >
-            <AiOutlineNotification className="icon" />
-            Announcements
-          </Link>
-          <Link
-            to="/manager/monitoring"
-            className={isActive("/monitoring") ? "active" : ""}
-            onClick={handleLinkClick}
-          >
-            <AiOutlineMonitor className="icon" />
-            Real-Time Monitoring
-          </Link>
-        </div>
       </nav>
     </aside>
   );

@@ -10,17 +10,19 @@
     margin-bottom: 20px;
 
     @media (max-width: variables.$breakpoint-md) {
-      .user-header .ant-row > div {
+      .user-header .ant-row>div {
         margin-bottom: 10px;
       }
     }
   }
+
   .ant-btn {
     background-color: variables.$primary;
-    color: variables.$quaternary;
+    color: white;
   }
+
   .user-table-wrapper {
-    background-color: variables.$quaternary;
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
 

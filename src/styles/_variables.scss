@@ -3,33 +3,32 @@
 $font-family: "Poppins", system-ui, sans-serif;
 
 // ============================
-// Main COLORS
+// MAIN COLORS (THEME BASE)
 // ============================
-$primary: #002766;       // Deep royal blue
-$secondary: #165dbe;     // Vivid sky blue
-$tertiary: #66aaff;      // Light soft blue
-$quaternary:white;
-$quinary:black;
-//=======================
-$success: #28a745;
-$danger: #dc3545;
+$primary: #002766; // Deep royal blue
+$secondary: #165dbe; // Vivid sky blue
+$tertiary: #66aaff; // Light soft blue
+
 // ============================
 // COLORS - LIGHT MODE
 // ============================
 $light-text: #000252;
 $light-text-secondary: #2c5aa0;
-$light-background: #E3EEFF;
-$light-background-secondary: #f8fbff;
-$light-background-tertiary: #d1e3ff;
-$light-background-quaternary: rgba(22, 93, 190, 0.2);
+
+$light-background: #ffffff; // Clean white
+$light-background-secondary: #f5f8fc; // Very light bluish-gray
+$light-background-tertiary: #d9e7fb; // Converted from rgba(22, 93, 190, 0.2) → subtle soft blue
+
 // ============================
 // COLORS - DARK MODE
 // ============================
-$dark-text: #E3EEFF;
-$dark-text-secondary: #b8d4ff;
-$dark-background: #0a0d2e;
-$dark-background-secondary: #1a1f4a;
-$dark-background-tertiary:#2a3566;
+$dark-text: #f1f5ff; // Light for contrast
+$dark-text-secondary: #c7dafb;
+
+$dark-background: #0a0d1a; // Rich dark navy
+$dark-background-secondary: #12172f; // Slightly elevated panel
+$dark-background-tertiary: #23436e; // Converted from rgba(102, 170, 255, 0.08) to soft navy-blue
+
 // ============================
 // FONT AND SPACING SETTINGS
 // ============================

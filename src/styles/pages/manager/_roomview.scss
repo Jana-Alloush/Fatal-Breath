@@ -21,13 +21,13 @@
     &:hover {
       background-color: variables.$tertiary;
       border-color: variables.$tertiary;
-      color: variables.$quinary;
+      color: black;
     }
   }
 
   .ant-table-wrapper {
     border-radius: 8px;
-    background-color: variables.$quaternary;
+    background-color: white;
     box-shadow: 0 2px 8px rgba(0, 39, 102, 0.05);
     font-size: variables.$font-size-base;
   }
@@ -37,7 +37,7 @@
     color: variables.$light-text;
   }
 
-  .ant-table-thead > tr > th {
+  .ant-table-thead>tr>th {
     background-color: variables.$light-background-tertiary;
     color: variables.$primary;
     font-weight: 600;
@@ -45,24 +45,24 @@
     font-size: variables.$font-size-lg;
   }
 
-  .ant-table-tbody > tr > td {
+  .ant-table-tbody>tr>td {
     text-align: center;
     vertical-align: middle;
     font-size: variables.$font-size-base;
   }
 
-  .ant-table-tbody > tr:hover > td {
-    background-color: variables.$light-background-quaternary;
-  }
+  // .ant-table-tbody>tr:hover>td {
+  //   background-color: variables.$light-background-quaternary;
+  // }
 
   .delete-icon {
-    color: variables.$danger;
+    color: #dc3545;
     font-size: 20px;
     cursor: pointer;
     transition: color 0.3s;
 
     &:hover {
-      color: darken(variables.$danger, 10%);
+      color: darken(#dc3545, 10%);
     }
   }
 
@@ -71,7 +71,7 @@
     font-family: variables.$font-family;
   }
 
-  .ant-form-item-label > label {
+  .ant-form-item-label>label {
     font-weight: 600;
     color: variables.$light-text-secondary;
     font-size: variables.$font-size-base;

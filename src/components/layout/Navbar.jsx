@@ -1,7 +1,7 @@
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoMdClose } from "react-icons/io";
 
-const ManagerNavbar = ({ isOpen, toggleSidebar }) => {
+const Navbar = ({ isOpen, toggleSidebar }) => {
   return (
     <nav className="manager-navbar">
       <button
@@ -26,4 +26,4 @@ const ManagerNavbar = ({ isOpen, toggleSidebar }) => {
   );
 };
 
-export default ManagerNavbar;
+export default Navbar;

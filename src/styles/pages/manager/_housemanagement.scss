@@ -20,7 +20,7 @@
       align-items: center;
       justify-content: center;
       background-color: variables.$primary;
-      color: variables.$quaternary;
+      color: white;
 
       &:hover {
         background-color: darken(variables.$primary, 5%);
@@ -35,17 +35,17 @@
 }
 
 .ant-table {
-  background-color: variables.$quaternary;
+  background-color: white;
   border-radius: 10px;
   overflow-x: auto;
 
-  .ant-table-thead > tr > th {
+  .ant-table-thead>tr>th {
     background-color: variables.$primary;
-    color: variables.$quaternary;
+    color: white;
     white-space: nowrap;
   }
 
-  .ant-table-tbody > tr > td {
+  .ant-table-tbody>tr>td {
     background-color: variables.$light-background-secondary;
     word-break: break-word;
   }

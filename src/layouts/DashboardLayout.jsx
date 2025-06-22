@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import ManagerSidebar from "../Sidebar/ManagerSidebar";
-import ManagerNavbar from "../Sidebar/ManagerNavbar";
+import ManagerSidebar from "../components/layout/sidebar/ManagerSidebar";
+import ManagerNavbar from "../components/layout/Navbar";
 
-const ManagerLayout = () => {
+const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
@@ -38,4 +38,4 @@ const ManagerLayout = () => {
   );
 };
 
-export default ManagerLayout;
+export default DashboardLayout;
