@@ -3,7 +3,7 @@ import LoginForm from "../../components/auth/LoginForm";
 import SignUpForm from "../../components/auth/SignUpForm";
 import { useState } from "react";
 // import fatalbreathLogo from '../../assets/fatalbreath.svg';
-import fatalbreathLogo from '../../assets/fatalbreath.png';
+// import fatalbreathLogo from '../../assets/fatalbreath.png';
 
 
 export default function AuthPage() {
