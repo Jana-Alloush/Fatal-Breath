@@ -41,9 +41,9 @@ const ProtectionSection = () => {
     ];
 
     return (
-        <div style={{ backgroundColor: '#c8d9ff', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+        <section id='protection' className="light-blue-bg py-5">
 
-            <div className="container py-5" style={{ position: 'relative', zIndex: 10 }}>
+            <div className="container" >
 
                 {/* How Fatal Breath Works Section */}
                 <div className={`mb-5 ${isVisible ? 'animate__animated animate__fadeInUp animate__delay-2s' : ''}`}>
@@ -224,7 +224,8 @@ const ProtectionSection = () => {
                 </div>
             </div>
 
-        </div>
+        </section>
+
     );
 };
 

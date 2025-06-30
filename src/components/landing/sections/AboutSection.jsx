@@ -1,7 +1,7 @@
 
 const AboutSection = () => {
     return (
-        <section id="features" className="py-5 light-red-bg text-dark">
+        <section id="about" className="py-5 light-red-bg text-dark">
             <div className="container">
 
                 <div className="row align-items-center">

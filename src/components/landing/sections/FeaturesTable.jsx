@@ -1,4 +1,3 @@
-import React from 'react';
 
 const FeaturesTable = () => {
     const features = [
@@ -11,7 +10,7 @@ const FeaturesTable = () => {
     ];
 
     return (
-        <section className="light-blue-bg py-5 position-relative" >
+        <section id="features" className="light-blue-bg py-5 " >
             <div className="container">
                 <div className="text-center mb-5">
                     <h2 className="display-4 fw-bold mb-3" style={{ color: '#2d3748' }}>

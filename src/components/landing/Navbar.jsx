@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Navbar = () => {
     const goToLogin = () => {
         window.location.href = "/auth"; // use navigate("/login") if using react-router-dom
@@ -30,16 +28,16 @@ const Navbar = () => {
                             <a className="nav-link active" href="#home">Home</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#features">Features</a>
+                            <a className="nav-link" href="#about">About</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#protection">Protection</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#screens">Screens</a>
+                            <a className="nav-link" href="#users">Users</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#team">Team</a>
+                            <a className="nav-link" href="#features">Features</a>
                         </li>
                     </ul>
 
