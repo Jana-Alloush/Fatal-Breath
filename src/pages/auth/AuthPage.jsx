@@ -1,9 +1,8 @@
-import ParticlesBackground from "../../components/auth/ParticlesBackground";
+import ParticlesBackground from "../../components/animations/ParticlesBackground";
+import SmokeBackground from "../../components/animations/SmokeBackground";
 import LoginForm from "../../components/auth/LoginForm";
 import SignUpForm from "../../components/auth/SignUpForm";
 import { useState } from "react";
-// import fatalbreathLogo from '../../assets/fatalbreath.svg';
-// import fatalbreathLogo from '../../assets/fatalbreath.png';
 
 
 export default function AuthPage() {
@@ -13,11 +12,11 @@ export default function AuthPage() {
 
     return (
         <div className="auth-page">
-            <ParticlesBackground />
+            {/* <ParticlesBackground /> */}
+            <SmokeBackground particleCount={300} direction="right" />
 
             <div className="branding-section">
                 <div className="d-flex ">
-                    {/* <img src={fatalbreathLogo} width={40} alt="fatal breath logo" /> */}
                     <h1 className="branding-title">FATAL BREATH</h1>
                 </div>
                 <h2 className="branding-subtitle">Your Guardian Angel Against Toxic Gases!</h2>

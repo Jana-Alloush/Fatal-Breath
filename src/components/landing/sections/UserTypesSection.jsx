@@ -55,7 +55,8 @@ const UserTypesSection = () => {
                         >
                             <div className="position-relative overflow-hidden" style={{ height: '300px' }}>
                                 <img
-                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                    // src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                    src="assets/images/manager2.jpg"
                                     className="w-100 h-100 object-fit-cover"
                                     alt="Manager"
                                     style={{ transition: 'transform 0.4s ease' }}
@@ -107,7 +108,8 @@ const UserTypesSection = () => {
                         >
                             <div className="position-relative overflow-hidden" style={{ height: '300px' }}>
                                 <img
-                                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                    // src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                    src="assets/images/members2.jpg"
                                     className="w-100 h-100 object-fit-cover"
                                     alt="Member"
                                     style={{ transition: 'transform 0.4s ease' }}
