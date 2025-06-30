@@ -13,21 +13,28 @@
 // GLOBAL STYLES
 // ============================
 html {
-    font-family: variables.$font-family;
-    font-size: variables.$font-size-base;
+    // font-family: variables.$font-family !important;
+    font-size: variables.$font-size-base !important;
+    overflow: auto;
+    /* enable scrolling */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+
 
     // Media queries for responsive font size adjustments
     @media (max-width: variables.$breakpoint-md) {
-        font-size: variables.$font-size-md;
+        font-size: variables.$font-size-md !important;
     }
 
     @media (max-width: variables.$breakpoint-sm) {
-        font-size: variables.$font-size-sm;
+        font-size: variables.$font-size-sm !important;
     }
 }
 
 body {
-
+    font-family: variables.$font-family !important;
     margin: 0;
     height: 100vh;
 

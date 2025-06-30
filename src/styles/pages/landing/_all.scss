@@ -1,43 +1,60 @@
+@use '../../variables' as variables; // Adjust path accordingly
+
 .navbar {
     background-color: rgba(255, 255, 255, 0.8);
-    /* White with 80% opacity */
 }
 
 .bg-light {
-    background-color: rgb(185, 185, 185);
-    /* White with 80% opacity */
+    background-color: variables.$light-background-tertiary;
+}
+
+.light-blue-bg {
+    background-color: #eaf2fd;
 }
 
 .hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-        url("/assets/images/alert.png");
-    background-size: cover;
-    background-position: center;
-    color: white;
+    position: relative;
+    overflow: hidden;
+    height: 93vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     text-align: center;
+    background-color: #000;
+    color: white;
+}
+
+.smoke-container {
+    position: absolute;
+    inset: 0;
+    // pointer-events: none;
+    z-index: 1;
 }
 
 .section-title {
     position: relative;
-    margin-bottom: 40px;
-    color: #dc3545;
-    /* --primary-color */
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    color: variables.$danger;
+    // color: variables.$secondary;
+
 }
 
-.section-title:after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background-color: #ff6b6b;
-    /* --secondary-color */
+// .section-title::after {
+//     content: "";
+//     position: absolute;
+//     bottom: -0.625rem; // -10px
+//     left: 50%;
+//     transform: translateX(-50%);
+//     width: 10rem; // 80px
+//     height: 0.1875rem; // 3px
+//     background-color: variables.$secondary;
+// }
+
+
+.custom-dark-icon {
+    filter: invert(100%) brightness(30%);
 }
 
 .card {
@@ -63,19 +80,16 @@
 
 .feature-icon {
     font-size: 2.5rem;
-    color: #dc3545;
-    /* --primary-color */
+    color: variables.$danger;
     margin-bottom: 15px;
 }
 
 .contact-section {
-    // background-color: #f8f9fa; /* --light-color */
     padding: 80px 0;
 }
 
 footer {
-    background-color: #282828;
-    /* --dark-color */
+    background-color: #282828; // Consider adding this to dark palette if reused
     color: white;
     padding: 30px 0;
 }
@@ -92,7 +106,6 @@ footer {
     border-radius: 5px;
 }
 
-/* Modal styles */
 .modal-img {
     width: 100%;
     height: 300px;
@@ -100,6 +113,5 @@ footer {
 }
 
 .danger-badge {
-    background-color: #dc3545;
-    /* --primary-color */
+    background-color: variables.$danger;
 }

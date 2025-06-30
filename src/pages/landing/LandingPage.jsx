@@ -2,7 +2,7 @@ import Navbar from '../../components/landing/Navbar';
 import Footer from '../../components/landing/Footer';
 
 import HeroSection from '../../components/landing/sections/HeroSection';
-import FeaturesSection from '../../components/landing/sections/FeaturesSection';
+import AboutSection from '../../components/landing/sections/AboutSection';
 import ProtectionSection from '../../components/landing/sections/ProtectionSection';
 import ScreensSection from '../../components/landing/sections/ScreensSection';
 import TeamSection from '../../components/landing/sections/TeamSection';
@@ -20,7 +20,7 @@ const LandingPage = () => {
             <Navbar />
             <main>
                 <HeroSection onGetStarted={goToLogin} />
-                <FeaturesSection />
+                <AboutSection />
                 <ProtectionSection />
                 <ScreensSection />
                 <TeamSection />

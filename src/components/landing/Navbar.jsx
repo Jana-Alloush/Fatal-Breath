@@ -6,7 +6,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="navbar">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
             <div className="container">
                 <a className="navbar-brand" href="#home">
                     <img src="/fatalbreath.png" alt="Fatal Breath Logo" width="200" height="auto" />
