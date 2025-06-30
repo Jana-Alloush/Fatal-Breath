@@ -1,4 +1,3 @@
-import React from 'react';
 import Magnet from '../../external/Magnet/Magnet';
 import SmokeBackground from '../../animations/SmokeBackground';
 

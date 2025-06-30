@@ -11,35 +11,68 @@ const FeaturesTable = () => {
     ];
 
     return (
-        <section className="py-5 bg-light">
+        <section className="light-blue-bg py-5 position-relative" >
             <div className="container">
-                <h2 className="text-center section-title">Key Features</h2>
-                <p className="text-center mb-5">Comprehensive protection against toxic gases</p>
-
-                <div className="table-responsive">
-                    <table className="table table-striped table-hover">
-                        <thead className="table-danger">
-                            <tr>
-                                <th>Feature</th>
-                                <th>Description</th>
-                                <th>Benefit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {features.map(({ feature, description, benefit }, idx) => (
-                                <tr key={idx}>
-                                    <td>{feature}</td>
-                                    <td>{description}</td>
-                                    <td>{benefit}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                <div className="text-center mb-5">
+                    <h2 className="display-4 fw-bold mb-3" style={{ color: '#2d3748' }}>
+                        Key <span style={{
+                            background: 'linear-gradient(135deg, #e53e3e, #c53030)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent'
+                        }}>Features</span>
+                    </h2>
+                    <p className="lead" style={{ color: '#4a5568' }}>
+                        Comprehensive protection against toxic gases
+                    </p>
                 </div>
 
-                <div className="alert alert-danger mt-4">
-                    <p className="mb-0">
-                        Carbon monoxide is called the "silent killer" because it's colorless, odorless, and can be deadly before symptoms are noticed.
+                <div className="rounded-4 overflow-hidden shadow-sm" style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                    border: '1px solid rgba(229, 62, 62, 0.15)',
+                    backdropFilter: 'blur(10px)'
+                }}>
+                    <div className="table-responsive">
+                        <table className="table align-middle mb-0">
+                            <thead style={{
+                                background: 'linear-gradient(135deg, #e53e3e, #c53030)',
+                                color: 'white',
+                                borderBottom: 'none'
+                            }}>
+                                <tr>
+                                    <th className="px-4 py-3">Feature</th>
+                                    <th className="px-4 py-3">Description</th>
+                                    <th className="px-4 py-3">Benefit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {features.map(({ feature, description, benefit }, idx) => (
+                                    <tr key={idx} style={{
+                                        transition: 'background-color 0.2s ease'
+                                    }}
+                                        onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255, 245, 245, 0.6)'}
+                                        onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+                                    >
+                                        <td className="px-4 py-3 fw-semibold" style={{ color: '#c53030' }}>{feature}</td>
+                                        <td className="px-4 py-3 text-muted">{description}</td>
+                                        <td className="px-4 py-3">
+                                            <span className="badge rounded-pill px-3 py-2 fw-medium" style={{
+                                                backgroundColor: 'rgba(229, 62, 62, 0.1)',
+                                                color: '#e53e3e',
+                                                border: '1px solid rgba(229, 62, 62, 0.2)'
+                                            }}>
+                                                {benefit}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div className="alert alert-danger mt-4 shadow-sm" style={{ borderRadius: '1rem' }}>
+                    <p className="mb-0 fw-medium text-center">
+                        Carbon monoxide is called the <strong>"silent killer"</strong> because it's colorless, odorless, and can be deadly before symptoms are noticed.
                     </p>
                 </div>
             </div>
