@@ -8,7 +8,7 @@ import Magnet from '../../external/Magnet/Magnet';
 
 const smokeImage = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/95637/Smoke-Element.png';
 
-const PARTICLE_COUNT = 450;
+const PARTICLE_COUNT = 150;
 const POSITION_RANGE = 700;
 
 const getRandomFloat = (min, max) => Math.random() * (max - min) + min;
@@ -189,9 +189,6 @@ const HeroSection = ({ onGetStarted }) => {
                 <p className="lead mb-5 text-secondary">
                     Your Guardian Angel Against Toxic Gases
                 </p>
-                {/* <p className="lead mb-5">
-                    Protecting your family from the silent threat of carbon monoxide and other dangerous gases
-                </p> */}
                 <button onClick={onGetStarted} className="btn btn-danger btn-lg me-2">
                     Get Started
                 </button>

@@ -1,13 +1,16 @@
 
 const AboutSection = () => {
     return (
-        <section id="features" className="py-5 light-blue-bg text-dark">
+        <section id="features" className="py-5 light-red-bg text-dark">
             <div className="container">
 
                 <div className="row align-items-center">
                     <div className="col-lg-6 mb-4 mb-lg-0 px-lg-4">
 
-                        <h2 className="section-title mb-4">Why Fatal Breath?</h2>
+                        {/* <h2 className="section-title mb-4">Why Fatal Breath?</h2> */}
+                        <h2 className="display-4 fw-bold mb-3" style={{ color: '#2d3748' }}>
+                            Why Fatal Breath ?
+                        </h2>
 
                         <p className="fs-5 text-secondary">
                             Fatal Breath is your smart shield against deadly gases like carbon monoxide—keeping your family safe through real-time alerts and intelligent detection before it’s too late.

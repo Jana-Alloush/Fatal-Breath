@@ -9,8 +9,8 @@
 }
 
 .light-blue-bg {
-    background-color: #e3eeff;
-    // background-color: #c8d9ff;
+    // background-color: #e3eeff;
+    background-color: #c8d9ff;
 }
 
 .light-red-bg {
@@ -25,9 +25,9 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #c8d9ff;
     background-color: #e3eeff;
     background-color: #ffe3e3;
+    background-color: #c8d9ff;
 
     color: white;
 }
@@ -45,6 +45,7 @@
     font-weight: 600;
     margin-bottom: 2.5rem;
     color: variables.$danger;
+    color: #2d3748;
     // color: variables.$secondary;
 
 }
