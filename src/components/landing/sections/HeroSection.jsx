@@ -4,10 +4,11 @@ import { Container } from '@pixi/display';
 import { Sprite } from '@pixi/sprite';
 import { Texture } from '@pixi/core';
 import { BLEND_MODES } from '@pixi/constants';
+import Magnet from '../../external/Magnet/Magnet';
 
 const smokeImage = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/95637/Smoke-Element.png';
 
-const PARTICLE_COUNT = 600;
+const PARTICLE_COUNT = 450;
 const POSITION_RANGE = 700;
 
 const getRandomFloat = (min, max) => Math.random() * (max - min) + min;
@@ -47,7 +48,7 @@ const HeroSection = ({ onGetStarted }) => {
                 height: '100%',
                 zIndex: 1,
                 pointerEvents: 'none',
-                opacity: 0.7,
+                opacity: 0.6,
             });
 
             const smokes = new Container();
@@ -64,14 +65,22 @@ const HeroSection = ({ onGetStarted }) => {
                 particle.rotation = Math.random() * Math.PI * 2;
                 particle._rotationSpeed = getRandomFloat(0.0005, 0.003) * (Math.random() < 0.5 ? 1 : -1);
 
-                particle.x = container.clientWidth / 2 + getRandomFloat(-POSITION_RANGE, POSITION_RANGE);
-                particle.y = container.clientHeight / 2 + getRandomFloat(-POSITION_RANGE, POSITION_RANGE);
+                // particle.x = container.clientWidth / 2 + getRandomFloat(-POSITION_RANGE, POSITION_RANGE);
+                // particle.y = container.clientHeight / 2 + getRandomFloat(-POSITION_RANGE, POSITION_RANGE);
+
+                const isLeft = Math.random() < 0.5;
+                particle.x = isLeft
+                    ? getRandomFloat(-50, 100)               // bottom-left corner
+                    : container.clientWidth + getRandomFloat(-100, 50); // bottom-right corner
+
+                particle.y = container.clientHeight + getRandomFloat(-50, 50); // near bottom edge
 
                 particle._baseScale = getRandomFloat(0.25, 1.0);
                 particle.scale.set(particle._baseScale);
 
-                particle._driftX = getRandomFloat(-0.15, 0.15);
-                particle._driftY = getRandomFloat(-0.03, 0.03);
+                particle._driftX = getRandomFloat(-0.8, 0.8);    // faster sideways movement
+                particle._driftY = getRandomFloat(-1.5, -0.5);   // faster upward movement
+
 
                 particle._flickerPhase = Math.random() * Math.PI * 2;
                 particle._flickerSpeed = getRandomFloat(0.02, 0.07);
@@ -170,9 +179,14 @@ const HeroSection = ({ onGetStarted }) => {
             <div ref={containerRef} className="smoke-container" />
 
             <div className=" text-center" style={{ position: 'relative', zIndex: 2 }}>
-                <h1 className="display-3 fw-semibold mb-4">Fatal Breath</h1>
 
-                <p className="lead mb-5">
+                <Magnet padding={100} disabled={false} magnetStrength={100}>
+                    <h1 className="display-1 mb-4">
+                        <span className="fw-bold text-black">FATAL</span>{' '}
+                        <span className="fw-light text-danger">BREATH</span>
+                    </h1>
+                </Magnet>
+                <p className="lead mb-5 text-secondary">
                     Your Guardian Angel Against Toxic Gases
                 </p>
                 {/* <p className="lead mb-5">

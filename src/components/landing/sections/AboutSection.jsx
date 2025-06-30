@@ -1,3 +1,4 @@
+
 const AboutSection = () => {
     return (
         <section id="features" className="py-5 light-blue-bg text-dark">
@@ -5,10 +6,9 @@ const AboutSection = () => {
 
                 <div className="row align-items-center">
                     <div className="col-lg-6 mb-4 mb-lg-0 px-lg-4">
-                        {/* Moved the About Us title here */}
+
                         <h2 className="section-title mb-4">Why Fatal Breath?</h2>
 
-                        <h2 className="mb-4 fw-semibold display-5">Why Fatal Breath?</h2>
                         <p className="fs-5 text-secondary">
                             Fatal Breath is your smart shield against deadly gases like carbon monoxide—keeping your family safe through real-time alerts and intelligent detection before it’s too late.
                         </p>
@@ -16,7 +16,11 @@ const AboutSection = () => {
 
                     <div className="col-lg-6">
                         {/* Carousel */}
-                        <div id="featuresCarousel" className="carousel slide rounded shadow-sm" data-bs-ride="carousel">
+                        <div
+                            id="featuresCarousel"
+                            className="carousel slide bg-white rounded shadow p-3"
+                            data-bs-ride="carousel"
+                        >
                             <div className="carousel-indicators">
                                 <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
                                 <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -26,7 +30,7 @@ const AboutSection = () => {
                                 <div className="carousel-item active">
                                     <img src="assets/images/alert.png" className="d-block w-100 rounded" alt="CO Detector" />
                                     <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded px-3 py-2">
-                                        <h5>Real-time Monitoring</h5>
+                                        <h5>Instant Alerts</h5>
                                     </div>
                                 </div>
                                 <div className="carousel-item">
@@ -36,7 +40,7 @@ const AboutSection = () => {
                                         alt="Mobile App"
                                     />
                                     <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded px-3 py-2">
-                                        <h5>Instant Alerts</h5>
+                                        <h5>Family Safety</h5>
                                     </div>
                                 </div>
                                 <div className="carousel-item">
@@ -46,7 +50,7 @@ const AboutSection = () => {
                                         className="d-block w-100 rounded"
                                     />
                                     <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded px-3 py-2">
-                                        <h5>Family Safety</h5>
+                                        <h5>Real-time Monitoring</h5>
                                     </div>
                                 </div>
                             </div>
@@ -59,6 +63,7 @@ const AboutSection = () => {
                                 <span className="visually-hidden">Next</span>
                             </button>
                         </div>
+
                     </div>
                 </div>
             </div>
