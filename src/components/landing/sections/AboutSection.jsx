@@ -7,8 +7,7 @@ const AboutSection = () => {
                 <div className="row align-items-center">
                     <div className="col-lg-6 mb-4 mb-lg-0 px-lg-4">
 
-                        {/* <h2 className="section-title mb-4">Why Fatal Breath?</h2> */}
-                        <h2 className="display-4 fw-bold mb-3" style={{ color: '#2d3748' }}>
+                        <h2 className="section-title">
                             Why Fatal Breath ?
                         </h2>
 

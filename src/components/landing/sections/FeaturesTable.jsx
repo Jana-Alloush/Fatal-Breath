@@ -13,7 +13,7 @@ const FeaturesTable = () => {
         <section id="features" className="light-blue-bg py-5 " >
             <div className="container">
                 <div className="text-center mb-5">
-                    <h2 className="display-4 fw-bold mb-3" style={{ color: '#2d3748' }}>
+                    <h2 className="section-title">
                         Key <span style={{
                             background: 'linear-gradient(135deg, #e53e3e, #c53030)',
                             WebkitBackgroundClip: 'text',

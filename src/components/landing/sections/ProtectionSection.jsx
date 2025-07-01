@@ -48,7 +48,7 @@ const ProtectionSection = () => {
                 {/* How Fatal Breath Works Section */}
                 <div className={`mb-5 ${isVisible ? 'animate__animated animate__fadeInUp animate__delay-2s' : ''}`}>
                     <div className="text-center mb-5">
-                        <h2 className="display-4 fw-bold mb-3" style={{ color: '#2d3748' }}>
+                        <h2 className="section-title">
                             Explore the - <span style={{
                                 background: 'linear-gradient(135deg, #e53e3e, #ff6b6b)',
                                 WebkitBackgroundClip: 'text',

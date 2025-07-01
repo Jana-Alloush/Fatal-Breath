@@ -31,7 +31,7 @@ const UserTypesSection = () => {
 
             <div className="container">
                 <div className="text-center mb-5">
-                    <h2 className="display-4 fw-bold mb-3" style={{ color: '#2d3748' }}>
+                    <h2 className="section-title">
                         User <span style={{
                             background: 'linear-gradient(135deg, #2b77e6, #4299e1)',
                             WebkitBackgroundClip: 'text',

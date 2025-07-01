@@ -3,7 +3,7 @@ import SmokeBackground from '../../animations/SmokeBackground';
 
 const HeroSection = ({ onGetStarted }) => {
     return (
-        <section id="home" className="hero-section text-white py-5">
+        <section id="home" className="hero-section light-blue-bg text-white py-5">
             <SmokeBackground particleCount={200} direction="up" />
 
             <div className="text-center" style={{ position: 'relative', zIndex: 2 }}>
