@@ -1,31 +1,36 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
   AiFillDashboard,
   AiFillHome,
   AiOutlineUser,
-  AiOutlineAreaChart,
-  AiOutlineNotification,
-  AiOutlineMonitor,
+  AiOutlineLogout,
 } from "react-icons/ai";
 
 const ManagerSidebar = ({ isOpen, closeSidebar }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (path) => location.pathname.includes(path);
 
   const handleLinkClick = () => {
-    // Close sidebar on mobile when a link is clicked
     if (window.innerWidth <= 768) {
       closeSidebar();
     }
   };
 
+  const handleLogout = () => {
+    // TODO: Add real logout logic (e.g., clearing tokens, calling API, etc.)
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <aside className={`sidebar ${isOpen ? "open" : ""}`}>
       <h1 className="sidebar-logo">Fatal Breath</h1>
-      <nav>
-        <div className="sidebar-section">
+
+      <div class="sidebar-section">
+        <nav className="sidebar-content">
           <h3>Dashboard</h3>
           <Link
             to="/manager"
@@ -55,8 +60,17 @@ const ManagerSidebar = ({ isOpen, closeSidebar }) => {
             <AiOutlineUser className="icon" />
             Users
           </Link>
+
+
+        </nav>
+
+        <div class="sidebar-footer">
+          <Link className="logout-link" onClick={handleLogout}>
+            <AiOutlineLogout className="icon" />
+            Logout
+          </Link>
         </div>
-      </nav>
+      </div>
     </aside>
   );
 };
