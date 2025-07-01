@@ -21,15 +21,17 @@ const ManagerSidebar = ({ isOpen, closeSidebar }) => {
 
   const handleLogout = () => {
     // TODO: Add real logout logic (e.g., clearing tokens, calling API, etc.)
+    console.log("Logging out...");
+
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   return (
     <aside className={`sidebar ${isOpen ? "open" : ""}`}>
       <h1 className="sidebar-logo">Fatal Breath</h1>
 
-      <div class="sidebar-section">
+      <div className="sidebar-section">
         <nav className="sidebar-content">
           <h3>Dashboard</h3>
           <Link
@@ -64,7 +66,7 @@ const ManagerSidebar = ({ isOpen, closeSidebar }) => {
 
         </nav>
 
-        <div class="sidebar-footer">
+        <div className="sidebar-footer">
           <Link className="logout-link" onClick={handleLogout}>
             <AiOutlineLogout className="icon" />
             Logout

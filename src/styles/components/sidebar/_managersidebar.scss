@@ -29,7 +29,7 @@
   .manager-navbar {
     display: flex;
     align-items: center;
-    padding: 1rem 1.5rem;
+    justify-content: space-between;
     background-color: variables.$light-background;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     position: sticky;
@@ -59,6 +59,35 @@
       }
     }
 
+    .navbar-profile {
+      display: flex;
+      align-items: center;
+      // flex-direction: column;
+      gap: 0.75rem;
+
+      @media (max-width: 769px) {
+        display: none;
+      }
+
+      span {
+        font-weight: 500;
+        color: variables.$light-text; // Ensure it stands out
+        font-size: 0.95rem;
+      }
+
+      img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid variables.$primary;
+      }
+
+      svg {
+        color: grey; // fallback icon color
+      }
+    }
+
     .navbar-content {
       display: flex;
       align-items: center;
@@ -66,24 +95,11 @@
       width: 100%;
 
       .page-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 600;
         color: variables.$light-text;
         margin: 0;
-      }
-
-      .navbar-actions {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        .user-profile {
-          padding: 0.5rem 1rem;
-          background-color: variables.$primary;
-          color: white;
-          border-radius: 0.75rem;
-          font-weight: 500;
-        }
+        text-transform: capitalize;
       }
     }
   }
