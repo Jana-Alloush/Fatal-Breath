@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
   Input,
-  Modal,
   Table,
-  Form,
   Row,
   Col,
   Tooltip,
@@ -14,79 +12,73 @@ import {
 import {
   PlusOutlined,
   DeleteOutlined,
-  UserAddOutlined,
   SearchOutlined,
   AppstoreOutlined,
 } from "@ant-design/icons";
-import { createHouse, loadHouses, deleteHouse } from "../../../root/api";
+import {
+  createHouse,
+  loadHouses,
+  deleteHouse,
+} from "../../../root/api";
+import AddHouseModal from "../../../components/modals/AddHouseModal";
 
 const HouseManagement = () => {
+  const [houses, setHouses] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isInviteOpen, setIsInviteOpen] = useState(false);
-  const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const [houses, setHouses] = useState([]);
-  useEffect(() => {
-    const fetchHouses = async () => {
-      try {
-        const response = await loadHouses();
-
-        const loadedHouses = response.houses.map((house) => ({
-          ...house,
-          key: house.id.toString(),
-        }));
-
-        setHouses(loadedHouses);
-      } catch (error) {
-        console.error(
-          "Failed to load house:",
-          error.response?.data || error.message
-        );
-      }
-    };
-
-    fetchHouses();
+  const fetchHouses = useCallback(async () => {
+    try {
+      const { houses: rawHouses } = await loadHouses();
+      const mapped = rawHouses.map((house) => ({
+        ...house,
+        key: house.id.toString(),
+      }));
+      setHouses(mapped);
+    } catch (error) {
+      console.error("Failed to load houses:", error.response?.data || error.message);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchHouses();
+  }, [fetchHouses]);
 
   const handleAddHouse = async (data) => {
     try {
-      const response = await createHouse(data.name, data.city, data.country);
-
-      console.log(response);
-      const addedHouse = {
-        ...response.house,
-        key: response.house.id.toString(),
-      };
-
-      setHouses([...houses, addedHouse]);
-      form.resetFields();
+      const { house } = await createHouse(data.name, data.city, data.country);
+      setHouses((prev) => [
+        ...prev,
+        { ...house, key: house.id.toString() },
+      ]);
       setIsModalOpen(false);
     } catch (error) {
-      console.error(
-        "Failed to add house:",
-        error.response?.data || error.message
-      );
+      console.error("Failed to add house:", error.response?.data || error.message);
     }
   };
 
-  const handleDelete = async (key) => {
+  const handleDelete = async (id) => {
     try {
-      await deleteHouse(key);
-      const newData = houses.filter((item) => item.key !== key);
-      setHouses(newData);
+      await deleteHouse(id);
+      setHouses((prev) => prev.filter((house) => house.key !== id));
     } catch (error) {
-      console.error(
-        "Failed to delete house:",
-        error.response?.data || error.message
-      );
+      console.error("Failed to delete house:", error.response?.data || error.message);
     }
   };
-  const handleShowRooms = (houseId) => {
-  navigate(`/houses/${houseId}/rooms`);
-};
 
+  const handleNavigateToRooms = (id) => {
+    navigate(`/houses/${id}/rooms`);
+  };
+
+  const filteredData = houses.filter(({ name, city, country }) => {
+    const query = searchText.toLowerCase();
+    return (
+      name.toLowerCase().includes(query) ||
+      city.toLowerCase().includes(query) ||
+      country.toLowerCase().includes(query)
+    );
+  });
 
   const columns = [
     {
@@ -95,15 +87,14 @@ const HouseManagement = () => {
       key: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
-
     {
-      title: "country",
+      title: "Country",
       dataIndex: "country",
       key: "country",
       sorter: (a, b) => a.country.localeCompare(b.country),
     },
     {
-      title: "city",
+      title: "City",
       dataIndex: "city",
       key: "city",
       sorter: (a, b) => a.city.localeCompare(b.city),
@@ -118,12 +109,12 @@ const HouseManagement = () => {
             <Button
               icon={<AppstoreOutlined />}
               size="small"
-              onClick={() => handleShowRooms(record.key)}
+              onClick={() => handleNavigateToRooms(record.key)}
               style={{
                 color: "#1890ff",
                 backgroundColor: "#f0f5ff",
                 borderColor: "#91d5ff",
-              }} // Light blue
+              }}
             />
           </Tooltip>
           <Popconfirm
@@ -139,18 +130,9 @@ const HouseManagement = () => {
     },
   ];
 
-  const filteredData = houses.filter((house) => {
-    const lowerSearch = searchText.toLowerCase();
-    return (
-      house.name.toLowerCase().includes(lowerSearch) ||
-      house.city.toLowerCase().includes(lowerSearch) ||
-      house.country.toLowerCase().includes(lowerSearch)
-    );
-  });
-
   return (
     <div className="house-management-container">
-      <Row className="house-management-header" gutter={[16, 16]}>
+      <Row className="house-management-header mb-3" gutter={[16, 16]}>
         <Col xs={24} sm={12} md={8}>
           <Input
             placeholder="Search..."
@@ -170,15 +152,6 @@ const HouseManagement = () => {
             Add House
           </Button>
         </Col>
-        <Col xs={12} sm={6}>
-          <Button
-            icon={<UserAddOutlined />}
-            block
-            onClick={() => setIsInviteOpen(true)}
-          >
-            Invite User
-          </Button>
-        </Col>
       </Row>
 
       <Table
@@ -188,60 +161,11 @@ const HouseManagement = () => {
         rowKey="key"
       />
 
-      {/* Modal: Add House */}
-      <Modal
-        title="Add House"
-        open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        footer={null}
-        centered
-      >
-        <Form layout="vertical" form={form} onFinish={handleAddHouse}>
-          <Form.Item
-            name="name"
-            label="House Name"
-            rules={[{ required: true }]}
-          >
-            <Input placeholder="e.g. Sunset Estate" />
-          </Form.Item>
-
-          <Form.Item
-            name="country"
-            label="Country"
-            rules={[{ required: true }]}
-          >
-            <Input placeholder="e.g. Lebanon" />
-          </Form.Item>
-          <Form.Item name="city" label="city" rules={[{ required: true }]}>
-            <Input placeholder="e.g. Beirut" />
-          </Form.Item>
-          <Button type="primary" htmlType="submit" block>
-            Add
-          </Button>
-        </Form>
-      </Modal>
-
-      {/* Modal: Invite User */}
-      <Modal
-        title="Invite User"
-        open={isInviteOpen}
-        onCancel={() => setIsInviteOpen(false)}
-        footer={null}
-        centered
-      >
-        <Form layout="vertical">
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[{ required: true, type: "email" }]}
-          >
-            <Input placeholder="example@email.com" />
-          </Form.Item>
-          <Button type="primary" htmlType="submit" block>
-            Send Invitation
-          </Button>
-        </Form>
-      </Modal>
+      <AddHouseModal
+        visible={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAddHouse={handleAddHouse}
+      />
     </div>
   );
 };
