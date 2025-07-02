@@ -1,46 +1,9 @@
+import { PlusOutlined, DeleteOutlined, SearchOutlined, AppstoreOutlined, HomeOutlined, EnvironmentOutlined, CalendarOutlined, BankOutlined, ShopOutlined, HddOutlined } from "@ant-design/icons";
+import { Button, Input, Card, Row, Col, Tooltip, Popconfirm, Typography, Empty } from "antd";
+import { createHouse, loadHouses, deleteHouse } from "../../../root/api";
+import AddHouseModal from "../../../components/modals/AddHouseModal";
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Input,
-  Card,
-  Row,
-  Col,
-  Tooltip,
-  Popconfirm,
-  Typography,
-  Space,
-  Tag,
-  Empty,
-  Pagination,
-} from "antd";
-import {
-  PlusOutlined,
-  DeleteOutlined,
-  SearchOutlined,
-  AppstoreOutlined,
-  HomeOutlined,
-  EnvironmentOutlined,
-  CalendarOutlined,
-  BankOutlined,
-  BuildOutlined,
-  CrownOutlined,
-  ShopOutlined,
-  RocketOutlined,
-  StarOutlined,
-  ThunderboltOutlined,
-  FireOutlined,
-  GlobalOutlined,
-  HomeTwoTone,
-  HddOutlined,
-} from "@ant-design/icons";
-import {
-  createHouse,
-  loadHouses,
-  deleteHouse,
-} from "../../../root/api";
-import AddHouseModal from "../../../components/modals/AddHouseModal";
-import { HouseIcon, HouseWifiIcon, Icon } from "lucide-react";
 
 const { Title, Text } = Typography;
 
@@ -48,8 +11,6 @@ const HouseManagement = () => {
   const [houses, setHouses] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(6); // Cards per page
   const navigate = useNavigate();
 
   const fetchHouses = useCallback(async () => {
@@ -91,8 +52,9 @@ const HouseManagement = () => {
     }
   };
 
-  const handleNavigateToRooms = (id) => {
-    navigate(`/houses/${id}/rooms`);
+  const handleNavigateToDetails = (id) => {
+    navigate(`${id}`);
+    // navigate("details");
   };
 
   const formatDate = (dateString) => {
@@ -113,14 +75,7 @@ const HouseManagement = () => {
     );
   });
 
-  // Pagination logic
-  const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const paginatedData = filteredData.slice(startIndex, endIndex);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+  const paginatedData = filteredData;
 
   // Function to get random house icon and color
   const getHouseIcon = (houseName, index) => {
@@ -168,6 +123,7 @@ const HouseManagement = () => {
               size="large"
               block
               onClick={() => setIsModalOpen(true)}
+              disabled={houses.length >= 6}
             >
               Add House
             </Button>
@@ -202,7 +158,7 @@ const HouseManagement = () => {
                           <Button
                             type="text"
                             icon={<AppstoreOutlined />}
-                            onClick={() => handleNavigateToRooms(house.key)}
+                            onClick={() => handleNavigateToDetails(house.key)}
                             className="card-action-button"
                             style={{ color: "#1890ff", fontWeight: "500" }}
                           >
@@ -286,23 +242,6 @@ const HouseManagement = () => {
               );
             })}
           </Row>
-
-          {/* Pagination */}
-          {filteredData.length > pageSize && (
-            <div className="pagination-container">
-              <Pagination
-                current={currentPage}
-                total={filteredData.length}
-                pageSize={pageSize}
-                onChange={handlePageChange}
-                showSizeChanger={false}
-                showQuickJumper
-                showTotal={(total, range) =>
-                  `${range[0]}-${range[1]} of ${total} houses`
-                }
-              />
-            </div>
-          )}
         </>
       )}
 

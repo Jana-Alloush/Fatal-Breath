@@ -31,3 +31,55 @@
     }
   }
 }
+
+.ant-table {
+  background-color: white;
+  border-radius: 0.625rem;
+  overflow-x: auto;
+
+  .ant-table-thead>tr>th {
+    background-color: variables.$primary;
+    color: white;
+    white-space: nowrap;
+    font-weight: 600;
+    border-bottom: 1px solid variables.$primary;
+    transition: background-color 0.3s ease;
+
+    // Prevent weird focus outline or background
+    &:focus,
+    &:active,
+    &.ant-table-cell-fix-left,
+    &.ant-table-cell-fix-right {
+      outline: none;
+      background-color: variables.$primary !important;
+    }
+
+    // Prevent hover from overriding background
+    &:hover {
+      background-color: darken(variables.$primary, 4%) !important;
+      color: white;
+    }
+  }
+
+  .ant-table-tbody>tr>td {
+    background-color: variables.$light-background-secondary;
+    word-break: break-word;
+    transition: background-color 0.3s ease;
+  }
+
+  .ant-table-tbody>tr:nth-child(odd)>td {
+    background-color: lighten(variables.$light-background-secondary, 3%);
+  }
+
+  .ant-table-tbody>tr:hover>td {
+    background-color: rgba(0, 39, 102, 0.05);
+  }
+
+  .ant-table-tbody>tr.ant-table-row-selected>td {
+    background-color: rgba(0, 39, 102, 0.15) !important;
+  }
+
+  .ant-table-cell:focus {
+    outline: none;
+  }
+}

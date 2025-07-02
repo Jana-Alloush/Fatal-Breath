@@ -23,9 +23,9 @@ function App() {
           <Route path="houses" element={<HouseManagement />} />
           <Route path="rooms" element={<RoomManagement />} />
           <Route path="members" element={<UserManagement />} />
+          <Route path="houses/:houseId" element={<RoomView />} />
         </Route>
 
-        <Route path="/houses/:houseId/rooms" element={<RoomView />} />
 
         {/* Catch-all route */}
         <Route path="*" element={<NotFoundPage />} />
