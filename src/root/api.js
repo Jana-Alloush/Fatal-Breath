@@ -45,6 +45,19 @@ export const Login = async (email, password) => {
   }
 };
 
+export const loadStat = async () => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.GET,
+      route: "/user/admin/overview",
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const createHouse = async (name, city, country) => {
   try {
     const response = await sendRequest({
@@ -62,6 +75,7 @@ export const createHouse = async (name, city, country) => {
     throw error;
   }
 };
+
 export const loadHouses = async () => {
   try {
     const response = await sendRequest({

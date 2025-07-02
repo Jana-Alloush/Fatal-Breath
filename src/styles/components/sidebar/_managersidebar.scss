@@ -10,12 +10,17 @@
     margin-left: 15rem;
     width: calc(100% - 15rem);
     min-height: 100vh;
-    background-color: variables.$light-background;
+    background-color: variables.$light-background-tertiary;
     color: variables.$light-text;
 
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+
+    @media (max-width: 768px) {
+      margin-left: 0;
+      width: 100%;
+    }
 
     .main-inner {
       padding: 1.5rem;
@@ -222,13 +227,6 @@
 
     @media (max-width: 768px) {
       display: block;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .main-content {
-      margin-left: 0;
-      width: 100%;
     }
   }
 }

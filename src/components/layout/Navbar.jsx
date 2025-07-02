@@ -6,21 +6,7 @@ import { localStorageAction } from "../../core/config/localstorage";
 
 const Navbar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
-
-  // const getUserFromLocalStorage = () => {
-  //   try {
-  //     const stored = localStorage.getItem("user_data");
-  //     return stored ? JSON.parse(stored) : null;
-  //   } catch (e) {
-  //     console.error("Failed to parse user data:", e);
-  //     return null;
-  //   }
-  // };
-
-  // const user = getUserFromLocalStorage();
   const user = localStorageAction("user_data");
-  console.log("user data", user);
-
 
   const generateBreadcrumb = (path) => {
     const parts = path.split("/").filter(Boolean);
