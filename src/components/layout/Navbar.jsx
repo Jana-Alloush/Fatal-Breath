@@ -10,7 +10,16 @@ const Navbar = ({ isOpen, toggleSidebar }) => {
 
   const generateBreadcrumb = (path) => {
     const parts = path.split("/").filter(Boolean);
+
     if (parts.length <= 1) return "Dashboard";
+
+    // Find if the path includes 'houses' followed by an ID or slug
+    const houseIndex = parts.findIndex((p) => p === "houses");
+    if (houseIndex !== -1 && parts.length > houseIndex + 1) {
+      return "Houses > Details";
+    }
+
+    // Default case: build from the rest of the path
     return parts
       .slice(1)
       .map((part) =>

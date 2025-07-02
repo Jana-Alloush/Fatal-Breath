@@ -54,7 +54,6 @@ const HouseManagement = () => {
 
   const handleNavigateToDetails = (id) => {
     navigate(`${id}`);
-    // navigate("details");
   };
 
   const formatDate = (dateString) => {
