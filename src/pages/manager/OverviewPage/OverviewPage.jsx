@@ -140,10 +140,10 @@ const OverviewPage = () => {
             <div className="card-body">
               <h5 className="card-title mb-4">Quick Actions</h5>
               <div className="d-grid gap-2">
-                <button className="btn btn-outline-primary d-flex justify-content-between align-items-center" onClick={() => navigate('/dashboard/houses')}>
+                <button className="btn btn-outline-primary d-flex justify-content-between align-items-center" onClick={() => navigate('/manager/houses')}>
                   Manage Houses <ArrowRightCircle size={16} />
                 </button>
-                <button className="btn btn-outline-info d-flex justify-content-between align-items-center" onClick={() => navigate('/dashboard/members')}>
+                <button className="btn btn-outline-info d-flex justify-content-between align-items-center" onClick={() => navigate('/manager/members')}>
                   Manage Members <ArrowRightCircle size={16} />
                 </button>
               </div>

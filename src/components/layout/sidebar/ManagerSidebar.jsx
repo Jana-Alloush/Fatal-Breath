@@ -60,10 +60,8 @@ const ManagerSidebar = ({ isOpen, closeSidebar }) => {
             onClick={handleLinkClick}
           >
             <AiOutlineUser className="icon" />
-            Users
+            Members
           </Link>
-
-
         </nav>
 
         <div className="sidebar-footer">
