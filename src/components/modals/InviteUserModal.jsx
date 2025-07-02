@@ -1,12 +1,35 @@
-import { Modal, Form, Input, Button } from "antd";
+import { Modal, Form, Button, message } from "antd";
+import AsyncSelect from "react-select/async";
+import { useState } from "react";
+import { inviteUser, searchUsers } from "../../root/api";
 
-const InviteUserModal = ({ visible, onClose }) => {
+const InviteUserModal = ({ visible, onClose, houseId }) => {
     const [form] = Form.useForm();
+    const [selectedUser, setSelectedUser] = useState(null);
 
-    const handleFinish = (values) => {
-        console.log("Send invite to:", values.email);
+    const handleFinish = async () => {
+        if (!selectedUser) {
+            message.error("Please select a user to invite.");
+            return;
+        }
+
+        console.log("Inviting:", selectedUser);
+        await inviteUser(houseId, selectedUser.value);
+        message.success(`Invitation sent to ${selectedUser.label}`);
         form.resetFields();
+        setSelectedUser(null);
         onClose();
+    };
+
+    const loadOptions = async (inputValue) => {
+        if (!inputValue) return [];
+        const data = await searchUsers(houseId, inputValue);
+
+        return data.users.map((user) => ({
+            label: `${user.name} (${user.email})`,
+            value: user.id,
+        }));
+
     };
 
     return (
@@ -15,18 +38,22 @@ const InviteUserModal = ({ visible, onClose }) => {
             open={visible}
             onCancel={() => {
                 form.resetFields();
+                setSelectedUser(null);
                 onClose();
             }}
             footer={null}
             centered
         >
             <Form layout="vertical" form={form} onFinish={handleFinish}>
-                <Form.Item
-                    name="email"
-                    label="Email"
-                    rules={[{ required: true, type: "email" }]}
-                >
-                    <Input placeholder="example@email.com" />
+                <Form.Item label="Search User">
+                    <AsyncSelect
+                        cacheOptions
+                        loadOptions={loadOptions}
+                        defaultOptions
+                        value={selectedUser}
+                        onChange={setSelectedUser}
+                        placeholder="Type name or email..."
+                    />
                 </Form.Item>
                 <Button type="primary" htmlType="submit" block>
                     Send Invitation

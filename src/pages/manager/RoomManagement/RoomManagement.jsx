@@ -1,25 +1,24 @@
 import { loadRoomsFromAdminHouses, createRoom, deleteRoom } from "../../../root/api";
 import AddRoomModal from "../../../components/modals/AddRoomModal";
+import InviteUserModal from "../../../components/modals/InviteUserModal"; // 👈 You need to create this
 import { Table, Button, Popconfirm, message, Tag } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, UserAddOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const RoomManagement = () => {
   const { houseId } = useParams();
   const [rooms, setRooms] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false); // 👈 New state
 
   useEffect(() => {
     const fetchRoomsAndHouse = async () => {
       try {
         const roomsData = await loadRoomsFromAdminHouses(houseId);
-        console.log(roomsData);
-
         setRooms(roomsData);
-
       } catch (error) {
-        console.error("Error loading rooms or house name:", error);
+        console.error("Error loading rooms:", error);
       }
     };
 
@@ -30,7 +29,7 @@ const RoomManagement = () => {
     try {
       const newRoom = await createRoom(values.name, houseId, values.type);
       setRooms((prev) => [...prev, newRoom]);
-      setIsModalOpen(false);
+      setIsAddModalOpen(false);
       message.success("Room added successfully!");
     } catch (error) {
       console.error("Error adding room:", error);
@@ -64,7 +63,7 @@ const RoomManagement = () => {
       title: "Sensor Level (%)",
       key: "sensor",
       render: (_, record) => {
-        if (record.hasSensor && record.sensor && record.sensor.co_level !== undefined) {
+        if (record.hasSensor && record.sensor?.co_level !== undefined) {
           const level = record.sensor.co_level;
           let color = level < 50 ? "green" : level < 75 ? "orange" : "red";
           return <Tag color={color}>{level}%</Tag>;
@@ -88,16 +87,15 @@ const RoomManagement = () => {
     },
   ];
 
-
   return (
     <div className="room-view-container">
-      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 16 }}>
-        <Button
-          type="primary"
-          onClick={() => setIsModalOpen(true)}
-          className="add-room-button"
-        >
+      <div style={{ display: "flex", justifyContent: "flex-end", gap: "1rem", marginBottom: 16 }}>
+        <Button type="primary" onClick={() => setIsAddModalOpen(true)} className="add-room-button">
           Add Room
+        </Button>
+        <Button type="primary" onClick={() => setIsInviteModalOpen(true)} className="add-room-button">
+          <UserAddOutlined />
+          Invite Member
         </Button>
       </div>
 
@@ -110,9 +108,15 @@ const RoomManagement = () => {
       />
 
       <AddRoomModal
-        visible={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        visible={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
         onSubmit={handleAddRoom}
+      />
+
+      <InviteUserModal
+        visible={isInviteModalOpen}
+        onClose={() => setIsInviteModalOpen(false)}
+        houseId={houseId}
       />
     </div>
   );

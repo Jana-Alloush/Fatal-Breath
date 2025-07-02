@@ -169,6 +169,7 @@ export const deleteHouse = async (houseId) => {
     throw error;
   }
 };
+
 export const loadRoomsFromAdminHouses = async (houseId) => {
   try {
     const response = await sendRequest({
@@ -187,6 +188,40 @@ export const loadRoomsFromAdminHouses = async (houseId) => {
     }));
 
     return rooms;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const inviteUser = async (houseId, userId) => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.POST,
+      route: "/user/admin/toggle-invitation",
+      body: {
+        house_id: houseId,
+        user_id: userId,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const searchUsers = async (houseId, username) => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.POST,
+      route: "/user/admin/search",
+      body: {
+        house_id: houseId,
+        username,
+      },
+    });
+
+    return response;
   } catch (error) {
     throw error;
   }
