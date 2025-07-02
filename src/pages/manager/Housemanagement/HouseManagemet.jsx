@@ -3,17 +3,36 @@ import { useNavigate } from "react-router-dom";
 import {
   Button,
   Input,
-  Table,
+  Card,
   Row,
   Col,
   Tooltip,
   Popconfirm,
+  Typography,
+  Space,
+  Tag,
+  Empty,
+  Pagination,
 } from "antd";
 import {
   PlusOutlined,
   DeleteOutlined,
   SearchOutlined,
   AppstoreOutlined,
+  HomeOutlined,
+  EnvironmentOutlined,
+  CalendarOutlined,
+  BankOutlined,
+  BuildOutlined,
+  CrownOutlined,
+  ShopOutlined,
+  RocketOutlined,
+  StarOutlined,
+  ThunderboltOutlined,
+  FireOutlined,
+  GlobalOutlined,
+  HomeTwoTone,
+  HddOutlined,
 } from "@ant-design/icons";
 import {
   createHouse,
@@ -21,11 +40,16 @@ import {
   deleteHouse,
 } from "../../../root/api";
 import AddHouseModal from "../../../components/modals/AddHouseModal";
+import { HouseIcon, HouseWifiIcon, Icon } from "lucide-react";
+
+const { Title, Text } = Typography;
 
 const HouseManagement = () => {
   const [houses, setHouses] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(6); // Cards per page
   const navigate = useNavigate();
 
   const fetchHouses = useCallback(async () => {
@@ -71,6 +95,15 @@ const HouseManagement = () => {
     navigate(`/houses/${id}/rooms`);
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
   const filteredData = houses.filter(({ name, city, country }) => {
     const query = searchText.toLowerCase();
     return (
@@ -80,86 +113,198 @@ const HouseManagement = () => {
     );
   });
 
-  const columns = [
-    {
-      title: "House Name",
-      dataIndex: "name",
-      key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
-      className: "text-center",
-    },
-    {
-      title: "Country",
-      dataIndex: "country",
-      key: "country",
-      sorter: (a, b) => a.country.localeCompare(b.country),
-      className: "text-center",
-    },
-    {
-      title: "City",
-      dataIndex: "city",
-      key: "city",
-      sorter: (a, b) => a.city.localeCompare(b.city),
-      className: "text-center",
-    },
-    {
-      title: "Actions",
-      key: "actions",
-      width: 150,
-      className: "text-center",
-      render: (_, record) => (
-        <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
-          <Tooltip title="View Rooms">
-            <Button
-              icon={<AppstoreOutlined />}
-              size="small"
-              onClick={() => handleNavigateToRooms(record.key)}
-              className=""
-            />
-          </Tooltip>
-          <Popconfirm
-            title="Are you sure to delete this house?"
-            onConfirm={() => handleDelete(record.key)}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button danger icon={<DeleteOutlined />} size="small" />
-          </Popconfirm>
-        </div>
-      ),
-    },
-  ];
+  // Pagination logic
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const paginatedData = filteredData.slice(startIndex, endIndex);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Function to get random house icon and color
+  const getHouseIcon = (houseName, index) => {
+    const icons = [
+      { icon: <HomeOutlined />, color: '#1890ff' },
+      { icon: <BankOutlined />, color: '#52c41a' },
+      { icon: <HddOutlined />, color: '#fa8c16' },
+      { icon: <ShopOutlined />, color: '#eb2f96' },
+    ];
+
+    // Use house name and index to get consistent icon
+    const iconIndex = (houseName.length + index) % icons.length;
+    return icons[iconIndex];
+  };
+
+  // Function to generate gradient background
+  const getCardGradient = (index) => {
+    const gradients = [
+      'linear-gradient(45deg, #002766 0%, #124a99 70%, #165dbe 90%)',
+      'linear-gradient(90deg, #165dbe 0%, #124a99 60%, #002766 100%)',
+      'linear-gradient(135deg, #002766 0%, #165dbe 75%, #124a99 95%)',
+    ];
+    return gradients[index % gradients.length];
+  };
 
   return (
     <div className="house-management-container">
-      <Row className="house-management-header mb-3" gutter={[16, 16]}>
-        <Col xs={24} sm={12} md={8}>
-          <Input
-            placeholder="Search..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            prefix={<SearchOutlined />}
-            allowClear
-          />
-        </Col>
-        <Col xs={12} sm={6}>
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            block
-            onClick={() => setIsModalOpen(true)}
-          >
-            Add House
-          </Button>
-        </Col>
-      </Row>
+      {/* Header Section */}
+      <div className="header-section">
+        <Row gutter={[16, 16]} align="middle" justify="space-between">
+          <Col xs={24} sm={16} md={12} lg={8}>
+            <Input
+              placeholder="Search houses by name, city, or country..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              prefix={<SearchOutlined />}
+              allowClear
+              size="large"
+            />
+          </Col>
+          <Col xs={24} sm={8} md={6} lg={4}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              size="large"
+              block
+              onClick={() => setIsModalOpen(true)}
+            >
+              Add House
+            </Button>
+          </Col>
+        </Row>
+      </div>
 
-      <Table
-        dataSource={filteredData}
-        columns={columns}
-        pagination={{ pageSize: 5 }}
-        rowKey="key"
-      />
+      {/* Cards Section */}
+      {paginatedData.length === 0 ? (
+        <Empty
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          description={
+            searchText ? "No houses match your search" : "No houses found"
+          }
+        />
+      ) : (
+        <>
+          <Row gutter={[24, 24]}>
+            {paginatedData.map((house, index) => {
+              const houseIcon = getHouseIcon(house.name, index);
+              const cardGradient = getCardGradient(index);
+
+              return (
+                <Col xs={24} sm={24} md={8} lg={8} xl={8} key={house.key}>
+                  <Card
+                    hoverable
+                    className="house-card"
+                    bodyStyle={{ padding: 0 }}
+                    actions={[
+                      <Tooltip title="View Details" key="details">
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                          <Button
+                            type="text"
+                            icon={<AppstoreOutlined />}
+                            onClick={() => handleNavigateToRooms(house.key)}
+                            className="card-action-button"
+                            style={{ color: "#1890ff", fontWeight: "500" }}
+                          >
+                            Details
+                          </Button>
+                        </div>
+                      </Tooltip>,
+                      <Popconfirm
+                        title="Delete House"
+                        description="Are you sure you want to delete this house?"
+                        onConfirm={() => handleDelete(house.key)}
+                        okText="Yes"
+                        cancelText="No"
+                        key="delete"
+                      >
+                        <Tooltip title="Delete House">
+                          <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                            <Button
+                              type="text"
+                              danger
+                              icon={<DeleteOutlined />}
+                              className="card-action-button"
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </Tooltip>
+                      </Popconfirm>,
+                    ]}
+
+                  >
+                    {/* Header with gradient background */}
+                    <div
+                      className="card-header"
+                      style={{ background: cardGradient }}
+                    >
+                      {/* Decorative circles */}
+                      <div className="decorative-circle-large" />
+                      <div className="decorative-circle-small" />
+
+                      {/* House Icon */}
+                      <div className="house-icon-container">
+                        <div className="icon-wrapper">
+                          <div className="icon">
+                            {houseIcon.icon}
+                            {/* <HouseIcon /> */}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* House Name */}
+                      <Title
+                        level={4}
+                        className="house-name"
+                        ellipsis={{ tooltip: house.name }}
+                      >
+                        {house.name}
+                      </Title>
+                    </div>
+
+                    {/* Content */}
+                    <div className="card-content">
+                      {/* Location Info */}
+                      <div className="location-info">
+                        <EnvironmentOutlined className="location-icon" />
+                        <Text className="location-text">
+                          {house.country}, {house.city}
+                        </Text>
+                      </div>
+
+                      {/* Creation Date */}
+                      <div className="creation-date">
+                        <CalendarOutlined className="date-icon" />
+                        <Text className="date-text">
+                          Created: {formatDate(house.createdAt || house.created_at)}
+                        </Text>
+                      </div>
+                    </div>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+
+          {/* Pagination */}
+          {filteredData.length > pageSize && (
+            <div className="pagination-container">
+              <Pagination
+                current={currentPage}
+                total={filteredData.length}
+                pageSize={pageSize}
+                onChange={handlePageChange}
+                showSizeChanger={false}
+                showQuickJumper
+                showTotal={(total, range) =>
+                  `${range[0]}-${range[1]} of ${total} houses`
+                }
+              />
+            </div>
+          )}
+        </>
+      )}
 
       <AddHouseModal
         visible={isModalOpen}
