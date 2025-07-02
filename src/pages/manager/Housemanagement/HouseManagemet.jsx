@@ -140,109 +140,107 @@ const HouseManagement = () => {
           }
         />
       ) : (
-        <>
-          <Row gutter={[24, 24]}>
-            {paginatedData.map((house, index) => {
-              const houseIcon = getHouseIcon(house.name, index);
-              const cardGradient = getCardGradient(index);
+        <Row gutter={[24, 24]}>
+          {paginatedData.map((house, index) => {
+            const houseIcon = getHouseIcon(house.name, index);
+            const cardGradient = getCardGradient(index);
 
-              return (
-                <Col xs={24} sm={24} md={8} lg={8} xl={8} key={house.key}>
-                  <Card
-                    hoverable
-                    className="house-card"
-                    bodyStyle={{ padding: 0 }}
-                    actions={[
-                      <Tooltip title="View Details" key="details">
+            return (
+              <Col xs={24} sm={24} md={8} lg={8} xl={8} key={house.key}>
+                <Card
+                  hoverable
+                  className="house-card"
+                  bodyStyle={{ padding: 0 }}
+                  actions={[
+                    <Tooltip title="View Details" key="details">
+                      <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <Button
+                          type="text"
+                          icon={<AppstoreOutlined />}
+                          onClick={() => handleNavigateToDetails(house.key)}
+                          className="card-action-button"
+                          style={{ color: "#1890ff", fontWeight: "500" }}
+                        >
+                          Details
+                        </Button>
+                      </div>
+                    </Tooltip>,
+                    <Popconfirm
+                      title="Delete House"
+                      description="Are you sure you want to delete this house?"
+                      onConfirm={() => handleDelete(house.key)}
+                      okText="Yes"
+                      cancelText="No"
+                      key="delete"
+                    >
+                      <Tooltip title="Delete House">
                         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                           <Button
                             type="text"
-                            icon={<AppstoreOutlined />}
-                            onClick={() => handleNavigateToDetails(house.key)}
+                            danger
+                            icon={<DeleteOutlined />}
                             className="card-action-button"
-                            style={{ color: "#1890ff", fontWeight: "500" }}
                           >
-                            Details
+                            Delete
                           </Button>
                         </div>
-                      </Tooltip>,
-                      <Popconfirm
-                        title="Delete House"
-                        description="Are you sure you want to delete this house?"
-                        onConfirm={() => handleDelete(house.key)}
-                        okText="Yes"
-                        cancelText="No"
-                        key="delete"
-                      >
-                        <Tooltip title="Delete House">
-                          <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                            <Button
-                              type="text"
-                              danger
-                              icon={<DeleteOutlined />}
-                              className="card-action-button"
-                            >
-                              Delete
-                            </Button>
-                          </div>
-                        </Tooltip>
-                      </Popconfirm>,
-                    ]}
+                      </Tooltip>
+                    </Popconfirm>,
+                  ]}
 
+                >
+                  {/* Header with gradient background */}
+                  <div
+                    className="card-header"
+                    style={{ background: cardGradient }}
                   >
-                    {/* Header with gradient background */}
-                    <div
-                      className="card-header"
-                      style={{ background: cardGradient }}
-                    >
-                      {/* Decorative circles */}
-                      <div className="decorative-circle-large" />
-                      <div className="decorative-circle-small" />
+                    {/* Decorative circles */}
+                    <div className="decorative-circle-large" />
+                    <div className="decorative-circle-small" />
 
-                      {/* House Icon */}
-                      <div className="house-icon-container">
-                        <div className="icon-wrapper">
-                          <div className="icon">
-                            {houseIcon.icon}
-                            {/* <HouseIcon /> */}
-                          </div>
+                    {/* House Icon */}
+                    <div className="house-icon-container">
+                      <div className="icon-wrapper">
+                        <div className="icon">
+                          {houseIcon.icon}
+                          {/* <HouseIcon /> */}
                         </div>
                       </div>
-
-                      {/* House Name */}
-                      <Title
-                        level={4}
-                        className="house-name"
-                        ellipsis={{ tooltip: house.name }}
-                      >
-                        {house.name}
-                      </Title>
                     </div>
 
-                    {/* Content */}
-                    <div className="card-content">
-                      {/* Location Info */}
-                      <div className="location-info">
-                        <EnvironmentOutlined className="location-icon" />
-                        <Text className="location-text">
-                          {house.country}, {house.city}
-                        </Text>
-                      </div>
+                    {/* House Name */}
+                    <Title
+                      level={4}
+                      className="house-name"
+                      ellipsis={{ tooltip: house.name }}
+                    >
+                      {house.name}
+                    </Title>
+                  </div>
 
-                      {/* Creation Date */}
-                      <div className="creation-date">
-                        <CalendarOutlined className="date-icon" />
-                        <Text className="date-text">
-                          Created: {formatDate(house.createdAt || house.created_at)}
-                        </Text>
-                      </div>
+                  {/* Content */}
+                  <div className="card-content">
+                    {/* Location Info */}
+                    <div className="location-info">
+                      <EnvironmentOutlined className="location-icon" />
+                      <Text className="location-text">
+                        {house.country}, {house.city}
+                      </Text>
                     </div>
-                  </Card>
-                </Col>
-              );
-            })}
-          </Row>
-        </>
+
+                    {/* Creation Date */}
+                    <div className="creation-date">
+                      <CalendarOutlined className="date-icon" />
+                      <Text className="date-text">
+                        Created: {formatDate(house.createdAt || house.created_at)}
+                      </Text>
+                    </div>
+                  </div>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
       )}
 
       <AddHouseModal

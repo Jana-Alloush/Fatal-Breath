@@ -16,11 +16,6 @@
     }
   }
 
-  .ant-btn {
-    background-color: variables.$primary;
-    color: white;
-  }
-
   .user-table-wrapper {
     background-color: white;
     padding: 20px;
@@ -43,9 +38,11 @@
     white-space: nowrap;
     font-weight: 600;
     border-bottom: 1px solid variables.$primary;
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
     transition: background-color 0.3s ease;
 
-    // Prevent weird focus outline or background
     &:focus,
     &:active,
     &.ant-table-cell-fix-left,
@@ -54,7 +51,6 @@
       background-color: variables.$primary !important;
     }
 
-    // Prevent hover from overriding background
     &:hover {
       background-color: darken(variables.$primary, 4%) !important;
       color: white;
@@ -64,6 +60,9 @@
   .ant-table-tbody>tr>td {
     background-color: variables.$light-background-secondary;
     word-break: break-word;
+    text-align: center;
+    font-size: 0.925rem;
+    padding: 0.75rem 1rem;
     transition: background-color 0.3s ease;
   }
 

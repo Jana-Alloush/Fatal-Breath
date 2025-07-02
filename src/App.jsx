@@ -1,10 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import OverviewPage from "./pages/manager/OverviewPage/OverviewPage";
-import RoomManagement from "./pages/manager/RoomManagement/RoomManagement";
 import HouseManagement from "./pages/manager/Housemanagement/HouseManagemet";
 import UserManagement from "./pages/manager/UserManagement/UserManagement";
-import RoomView from "./pages/manager/RoomManagement/ViewRooms";
+import RoomManagement from "./pages/manager/RoomManagement/RoomManagement";
 
 import AuthPage from "./pages/auth/AuthPage";
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -23,7 +22,7 @@ function App() {
           <Route path="houses" element={<HouseManagement />} />
           <Route path="rooms" element={<RoomManagement />} />
           <Route path="members" element={<UserManagement />} />
-          <Route path="houses/:houseId" element={<RoomView />} />
+          <Route path="houses/:houseId" element={<RoomManagement />} />
         </Route>
 
 
