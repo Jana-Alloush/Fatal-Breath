@@ -55,8 +55,8 @@ const ManagerSidebar = ({ isOpen, closeSidebar }) => {
             Houses
           </Link>
           <Link
-            to="/manager/users"
-            className={isActive("/users") ? "active" : ""}
+            to="/manager/members"
+            className={isActive("/members") ? "active" : ""}
             onClick={handleLinkClick}
           >
             <AiOutlineUser className="icon" />

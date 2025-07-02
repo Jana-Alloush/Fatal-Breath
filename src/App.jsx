@@ -22,7 +22,7 @@ function App() {
           <Route index element={<OverviewPage />} />
           <Route path="houses" element={<HouseManagement />} />
           <Route path="rooms" element={<RoomManagement />} />
-          <Route path="users" element={<UserManagement />} />
+          <Route path="members" element={<UserManagement />} />
         </Route>
 
         <Route path="/houses/:houseId/rooms" element={<RoomView />} />

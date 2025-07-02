@@ -86,35 +86,35 @@ const HouseManagement = () => {
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
+      className: "text-center",
     },
     {
       title: "Country",
       dataIndex: "country",
       key: "country",
       sorter: (a, b) => a.country.localeCompare(b.country),
+      className: "text-center",
     },
     {
       title: "City",
       dataIndex: "city",
       key: "city",
       sorter: (a, b) => a.city.localeCompare(b.city),
+      className: "text-center",
     },
     {
       title: "Actions",
       key: "actions",
       width: 150,
+      className: "text-center",
       render: (_, record) => (
-        <div style={{ display: "flex", gap: 8 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
           <Tooltip title="View Rooms">
             <Button
               icon={<AppstoreOutlined />}
               size="small"
               onClick={() => handleNavigateToRooms(record.key)}
-              style={{
-                color: "#1890ff",
-                backgroundColor: "#f0f5ff",
-                borderColor: "#91d5ff",
-              }}
+              className=""
             />
           </Tooltip>
           <Popconfirm

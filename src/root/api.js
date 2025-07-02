@@ -89,6 +89,32 @@ export const loadHouses = async () => {
   }
 };
 
+export const loadMembers = async () => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.GET,
+      route: "/user/admin/members",
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteMember = async (houseId, memberId) => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.DELETE,
+      route: `/user/admin/${houseId}/member/${memberId}`,
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const createRoom = async (name, house_id, type) => {
   try {
     const response = await sendRequest({
@@ -130,6 +156,7 @@ export const deleteRoom = async (roomId) => {
     throw error;
   }
 };
+
 export const deleteHouse = async (houseId) => {
   try {
     const response = await sendRequest({
