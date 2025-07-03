@@ -52,7 +52,7 @@
     }
 
     &:hover {
-      background-color: darken(variables.$primary, 4%) !important;
+      background-color: variables.$dark-background !important;
       color: white;
     }
   }
@@ -67,7 +67,7 @@
   }
 
   .ant-table-tbody>tr:nth-child(odd)>td {
-    background-color: lighten(variables.$light-background-secondary, 3%);
+    background-color: #e7effa;
   }
 
   .ant-table-tbody>tr:hover>td {

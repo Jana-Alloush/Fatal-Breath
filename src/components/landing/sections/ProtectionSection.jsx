@@ -41,7 +41,7 @@ const ProtectionSection = () => {
     ];
 
     return (
-        <section id='protection' className="light-blue-bg py-5">
+        <section id='protection' className="light-blue-bg py-5 px-3">
 
             <div className="container" >
 

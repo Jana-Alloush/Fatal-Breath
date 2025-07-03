@@ -1,7 +1,7 @@
 
 const AboutSection = () => {
     return (
-        <section id="about" className="py-5 light-red-bg text-dark">
+        <section id="about" className="py-5 px-2 light-red-bg text-dark">
             <div className="container">
 
                 <div className="row align-items-center">
@@ -20,7 +20,7 @@ const AboutSection = () => {
                         {/* Carousel */}
                         <div
                             id="featuresCarousel"
-                            className="carousel slide bg-white rounded shadow p-3"
+                            className="carousel slide bg-white rounded shadow p-2"
                             data-bs-ride="carousel"
                         >
                             <div className="carousel-indicators">

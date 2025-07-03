@@ -27,7 +27,7 @@ const hoverLeave = (e, borderColor) => {
 const UserTypesSection = () => {
 
     return (
-        <section id="users" className="light-red-bg py-5 mb-5">
+        <section id="users" className="light-red-bg py-5 px-4 mb-5">
 
             <div className="container">
                 <div className="text-center mb-5">
