@@ -1,7 +1,7 @@
 import { Modal, Form, Button, message } from "antd";
 import AsyncSelect from "react-select/async";
 import { useState } from "react";
-import { inviteUser, searchUsers } from "../../root/api";
+import { toggleInvitation, searchUsers } from "../../root/api";
 
 const InviteUserModal = ({ visible, onClose, houseId }) => {
     const [form] = Form.useForm();
@@ -14,7 +14,7 @@ const InviteUserModal = ({ visible, onClose, houseId }) => {
         }
 
         console.log("Inviting:", selectedUser);
-        await inviteUser(houseId, selectedUser.value);
+        await toggleInvitation(houseId, selectedUser.value);
         message.success(`Invitation sent to ${selectedUser.label}`);
         form.resetFields();
         setSelectedUser(null);

@@ -193,7 +193,7 @@ export const loadRoomsFromAdminHouses = async (houseId) => {
   }
 };
 
-export const inviteUser = async (houseId, userId) => {
+export const toggleInvitation = async (houseId, userId) => {
   try {
     const response = await sendRequest({
       method: requestMethods.POST,
@@ -201,6 +201,24 @@ export const inviteUser = async (houseId, userId) => {
       body: {
         house_id: houseId,
         user_id: userId,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const proccessRequest = async (houseId, userId, status) => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.POST,
+      route: "/user/admin/process-request",
+      body: {
+        house_id: houseId,
+        user_id: userId,
+        status,
       },
     });
 
@@ -219,6 +237,19 @@ export const searchUsers = async (houseId, username) => {
         house_id: houseId,
         username,
       },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const loadRequests = async () => {
+  try {
+    const response = await sendRequest({
+      method: requestMethods.GET,
+      route: "/user/admin/memberships",
     });
 
     return response;

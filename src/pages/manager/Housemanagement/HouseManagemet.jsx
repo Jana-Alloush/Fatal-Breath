@@ -149,7 +149,7 @@ const HouseManagement = () => {
                 <Card
                   hoverable
                   className="house-card"
-                  bodyStyle={{ padding: 0 }}
+                  styles={{ body: { padding: 0 } }}
                   actions={[
                     <Tooltip title="View Details" key="details">
                       <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>

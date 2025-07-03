@@ -4,11 +4,12 @@ import OverviewPage from "./pages/manager/OverviewPage/OverviewPage";
 import HouseManagement from "./pages/manager/Housemanagement/HouseManagemet";
 import UserManagement from "./pages/manager/UserManagement/UserManagement";
 import RoomManagement from "./pages/manager/RoomManagement/RoomManagement";
+import RequestsPage from "./pages/manager/Requests/RequestsPage";
 
 import AuthPage from "./pages/auth/AuthPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 import LandingPage from "./pages/landing/LandingPage";
-import NotFoundPage from "./pages/NotFoundPage"; // <- create this component
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="rooms" element={<RoomManagement />} />
           <Route path="members" element={<UserManagement />} />
           <Route path="houses/:houseId" element={<RoomManagement />} />
+          <Route path="requests" element={<RequestsPage />} />
         </Route>
 
 
