@@ -127,7 +127,9 @@ export const createRoom = async (name, house_id, type) => {
       },
     });
 
-    return response;
+    console.log("Room created:", response);
+
+    return response.room;
   } catch (error) {
     throw error;
   }

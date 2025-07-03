@@ -241,12 +241,14 @@ const HouseManagement = () => {
           })}
         </Row>
       )}
+      {isModalOpen && (
+        <AddHouseModal
+          visible={true}
+          onClose={() => setIsModalOpen(false)}
+          onAddHouse={handleAddHouse}
+        />
+      )}
 
-      <AddHouseModal
-        visible={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onAddHouse={handleAddHouse}
-      />
     </div>
   );
 };

@@ -28,7 +28,15 @@ const RoomManagement = () => {
   const handleAddRoom = async (values) => {
     try {
       const newRoom = await createRoom(values.name, houseId, values.type);
-      setRooms((prev) => [...prev, newRoom]);
+
+      // Add missing properties if needed
+      const normalizedRoom = {
+        ...newRoom,
+        hasSensor: newRoom.sensor ? true : false,
+        sensor: newRoom.sensor || null,
+      };
+
+      setRooms((prev) => [...prev, normalizedRoom]);
       setIsAddModalOpen(false);
       message.success("Room added successfully!");
     } catch (error) {
@@ -107,17 +115,22 @@ const RoomManagement = () => {
         size="large"
       />
 
-      <AddRoomModal
-        visible={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
-        onSubmit={handleAddRoom}
-      />
+      {isAddModalOpen && (
+        <AddRoomModal
+          visible={true}
+          onClose={() => setIsAddModalOpen(false)}
+          onSubmit={handleAddRoom}
+        />
+      )}
 
-      <InviteUserModal
-        visible={isInviteModalOpen}
-        onClose={() => setIsInviteModalOpen(false)}
-        houseId={houseId}
-      />
+      {isInviteModalOpen && (
+        <InviteUserModal
+          visible={true}
+          onClose={() => setIsInviteModalOpen(false)}
+          houseId={houseId}
+        />
+      )}
+
     </div>
   );
 };
