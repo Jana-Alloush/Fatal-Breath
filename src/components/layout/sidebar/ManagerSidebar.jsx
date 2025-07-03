@@ -3,10 +3,8 @@ import {
   AiFillDashboard,
   AiFillHome,
   AiOutlineUser,
-  AiOutlineLogout,
 } from "react-icons/ai";
-import { FaUserPlus, FaSearch, FaEnvelopeOpenText } from "react-icons/fa";
-import { MdExplore } from "react-icons/md";
+import { FaEnvelopeOpenText } from "react-icons/fa";
 import { LogOutIcon } from "lucide-react";
 
 const ManagerSidebar = ({ isOpen, closeSidebar }) => {
@@ -23,7 +21,7 @@ const ManagerSidebar = ({ isOpen, closeSidebar }) => {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/");
+    navigate("/auth", { replace: true });
   };
 
   return (
@@ -82,24 +80,16 @@ const ManagerSidebar = ({ isOpen, closeSidebar }) => {
               <FaEnvelopeOpenText className="icon" />
               Requests
             </Link>
-
-            {/* <Link
-              to="/manager/explore"
-              className={isActive("/explore") ? "active" : ""}
-              onClick={handleLinkClick}
-            >
-              <MdExplore className="icon" />
-              Explore
-            </Link> */}
           </div>
         </nav>
 
         {/* Footer */}
         <div className="sidebar-footer">
-          <Link className="logout-link" onClick={handleLogout}>
+          <button className="btn btn-outline-danger w-100 text-start d-flex align-items-center gap-2"
+            onClick={handleLogout}>
             <LogOutIcon className="icon" />
             Logout
-          </Link>
+          </button>
         </div>
       </div>
     </aside>
