@@ -124,7 +124,9 @@ const RequestsPage = () => {
         <div className="container">
             {/* Tabs */}
             <div className="mb-4">
-                <Space.Compact>
+                <div
+                    className="d-flex flex-column flex-sm-row gap-2 align-items-start align-items-sm-center"
+                >
                     <Button
                         type={activeTab === 'requests' ? 'primary' : 'default'}
                         icon={<InboxOutlined />}
@@ -132,6 +134,7 @@ const RequestsPage = () => {
                             setActiveTab('requests');
                             setCurrentPage(1);
                         }}
+                        className="w-100 w-sm-auto"
                     >
                         Requests
                         {!loading && (
@@ -145,14 +148,16 @@ const RequestsPage = () => {
                             setActiveTab('invitations');
                             setCurrentPage(1);
                         }}
+                        className="w-100 w-sm-auto"
                     >
                         Invitations
                         {!loading && (
                             <span className="badge bg-white text-secondary ms-2">{invitations.length}</span>
                         )}
                     </Button>
-                </Space.Compact>
+                </div>
             </div>
+
 
             {/* Content */}
             {loading ? (

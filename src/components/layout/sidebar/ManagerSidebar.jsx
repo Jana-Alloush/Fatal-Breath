@@ -83,14 +83,14 @@ const ManagerSidebar = ({ isOpen, closeSidebar }) => {
               Requests
             </Link>
 
-            <Link
+            {/* <Link
               to="/manager/explore"
               className={isActive("/explore") ? "active" : ""}
               onClick={handleLinkClick}
             >
               <MdExplore className="icon" />
               Explore
-            </Link>
+            </Link> */}
           </div>
         </nav>
 
