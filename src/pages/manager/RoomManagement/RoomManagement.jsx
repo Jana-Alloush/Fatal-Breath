@@ -9,21 +9,26 @@ import { useEffect, useState } from "react";
 const RoomManagement = () => {
   const { houseId } = useParams();
   const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false); // 👈 New state
 
   useEffect(() => {
     const fetchRoomsAndHouse = async () => {
+      setLoading(true);
       try {
         const roomsData = await loadRoomsFromAdminHouses(houseId);
         setRooms(roomsData);
       } catch (error) {
         console.error("Error loading rooms:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchRoomsAndHouse();
   }, [houseId]);
+
 
   const handleAddRoom = async (values) => {
     try {
@@ -98,16 +103,17 @@ const RoomManagement = () => {
   return (
     <div className="room-view-container">
       <div style={{ display: "flex", justifyContent: "flex-end", gap: "1rem", marginBottom: 16 }}>
-        <Button type="primary" onClick={() => setIsAddModalOpen(true)} className="add-room-button">
+        <Button type="primary" onClick={() => setIsAddModalOpen(true)} disabled={loading}>
           Add Room
         </Button>
-        <Button type="primary" onClick={() => setIsInviteModalOpen(true)} className="add-room-button">
+        <Button type="primary" onClick={() => setIsInviteModalOpen(true)} disabled={loading}>
           <UserAddOutlined />
           Invite Member
         </Button>
       </div>
 
       <Table
+        loading={loading}
         dataSource={rooms}
         columns={columns}
         rowKey="id"

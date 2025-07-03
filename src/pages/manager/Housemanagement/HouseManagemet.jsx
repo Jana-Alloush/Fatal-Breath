@@ -1,5 +1,5 @@
 import { PlusOutlined, DeleteOutlined, SearchOutlined, AppstoreOutlined, HomeOutlined, EnvironmentOutlined, CalendarOutlined, BankOutlined, ShopOutlined, HddOutlined } from "@ant-design/icons";
-import { Button, Input, Card, Row, Col, Tooltip, Popconfirm, Typography, Empty } from "antd";
+import { Button, Input, Card, Row, Col, Tooltip, Popconfirm, Typography, Empty, Skeleton } from "antd";
 import { createHouse, loadHouses, deleteHouse } from "../../../root/api";
 import AddHouseModal from "../../../components/modals/AddHouseModal";
 import { useState, useEffect, useCallback } from "react";
@@ -9,11 +9,13 @@ const { Title, Text } = Typography;
 
 const HouseManagement = () => {
   const [houses, setHouses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const fetchHouses = useCallback(async () => {
+    setLoading(true);
     try {
       const { houses: rawHouses } = await loadHouses();
       const mapped = rawHouses.map((house) => ({
@@ -23,6 +25,8 @@ const HouseManagement = () => {
       setHouses(mapped);
     } catch (error) {
       console.error("Failed to load houses:", error.response?.data || error.message);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -131,7 +135,17 @@ const HouseManagement = () => {
       </div>
 
       {/* Cards Section */}
-      {paginatedData.length === 0 ? (
+      {loading ? (
+        <Row gutter={[24, 24]}>
+          {[...Array(6)].map((_, index) => (
+            <Col xs={24} sm={24} md={8} lg={8} xl={8} key={index}>
+              <Card>
+                <Skeleton active avatar paragraph={{ rows: 4 }} />
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      ) : paginatedData.length === 0 ? (
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
           description={

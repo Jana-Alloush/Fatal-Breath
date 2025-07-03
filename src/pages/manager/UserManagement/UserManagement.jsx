@@ -9,10 +9,12 @@ import { loadMembers, deleteMember } from "../../../root/api";
 
 const UserManagement = () => {
   const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     const fetchMembers = async () => {
+      setLoading(true); // Start loading
       try {
         const response = await loadMembers();
         const flattenedMembers = [];
@@ -34,11 +36,14 @@ const UserManagement = () => {
         setMembers(flattenedMembers);
       } catch (error) {
         console.error("Failed to load members:", error.response?.data || error.message);
+      } finally {
+        setLoading(false); // Stop loading after fetch
       }
     };
 
     fetchMembers();
   }, []);
+
 
   const handleDelete = async (member) => {
     try {
@@ -133,6 +138,7 @@ const UserManagement = () => {
       </Row>
 
       <Table
+        loading={loading}
         dataSource={filteredData}
         columns={columns}
         pagination={{ pageSize: 5 }}
